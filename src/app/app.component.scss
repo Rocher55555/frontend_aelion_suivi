@@ -1,0 +1,15 @@
+$default-color: #000;
+$lighten-color: lightten($default-color, 10%);
+
+.intern-card{
+  width: 50em;
+  border: solid 1px $default-color;
+  box-shadow: 0 5px 5px -5px $default-color;
+  box-shadow: 5 0px 5px -5px $default-color;
+  span{
+    &.uppercase{
+    text-transform: uppercase;
+    }
+  }
+}
+
