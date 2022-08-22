@@ -1,0 +1,23 @@
+<h2>intern-detail</h2>
+
+ <!-- <button [routerLink]="['/interns']">
+  Retour à Interns
+</button> -->
+
+<div>
+  <a [routerLink]="['/interns']" >
+    retourner au tab
+  </a>
+</div>
+
+  <ul *ngIf="intern !== null">
+    <li> {{intern.name}} </li>
+    <li> {{intern.firstname}} </li>
+    <li> {{intern.email}} </li>
+    <li> {{intern.phoneNumber}}  </li>
+    <li> {{intern.birthDate | date:"mediumDate"}} </li>
+    <li> {{intern.address}} </li>
+  </ul>
+
+
+

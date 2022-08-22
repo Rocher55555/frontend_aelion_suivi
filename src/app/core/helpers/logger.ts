@@ -1,5 +1,5 @@
 import * as moment from "moment";
-export class Logger {
+export abstract class Logger {
 
   public static infoStyle: string[] = [
     'background: blue',

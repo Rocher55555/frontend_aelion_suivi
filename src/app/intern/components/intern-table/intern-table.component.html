@@ -14,9 +14,11 @@
   </thead>
 
   <tbody>
-      <tr *ngFor="let intern of interns">
+      <tr *ngFor="let intern of internService.interns">
         <td> {{ intern.id }} </td>
-        <td> {{ intern.name | uppercase }} </td>
+        <td>
+           <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
+        </td>
         <td> {{ intern.firstname }} </td>
         <td> {{ intern.phoneNumber }} </td>
         <td> {{ intern.email }} </td>
@@ -24,3 +26,5 @@
       </tr>
   </tbody>
 </table>
+
+<a [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</a>

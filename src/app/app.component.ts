@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InternService } from './core/services/intern.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,8 @@ export class AppComponent {
     return this.title
   }
 
-
-
-
-
-
+// injection du service
+  public constructor(
+    public internService: InternService
+  ) {}
 }
