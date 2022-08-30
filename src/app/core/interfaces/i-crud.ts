@@ -1,7 +1,9 @@
+import { Observable } from "rxjs";
+
 export interface ICrud<T> {
   add(item: T): void
   update(item: T): void;
   delete(item : T): void;
-  findAll():void;
+  findAll(): Observable<T[]>;
   findOne(id: number): T | null;
 }
