@@ -9,48 +9,9 @@ import { Intern } from '../models/intern';
 
 export class InternService implements ICrud<Intern>{
 
-  public interns: Intern[] = [
-    {
-      id:125,
-      name: 'Shalala',
-      firstname: 'Paula',
-      email: 'opaula@hotmail.com',
-      phoneNumber: '+(33) 55 55 50 55 05',
-      birthDate: new Date(1989, 10, 15),
-      address: '1, place du champs de Mars'
-    },
-    {
-      id:2,
-      name: 'Pina',
-      firstname: 'Monica',
-      email: 'ola@hotmail.com',
-      phoneNumber: '+(33) 00 22 11 55 54',
-      birthDate: new Date(1992, 6, 1),
-      address: '1, rue de la revolution'
-    },
-    {
-      id:3,
-      name: 'Castanie',
-      firstname: 'Piotr',
-      email: 'pedro@hotmail.com',
-      phoneNumber: '+(33) 51 47 54 0025',
-      birthDate: new Date(1995, 12, 12),
-      address: '10, boulevard de la charette'
-    },
-    {
-      id:4,
-      name: 'Sebbah',
-      firstname: 'Elie',
-      email: 'elie@hotmail.com',
-      phoneNumber: '+(33) 00 00 0 00 25',
-      birthDate: new Date(19, 3, 16),
-      address: '15, chemin de la galette'
-    },
-  ]
+  public interns: Intern[] = []
 
-  public constructor() {
-    Logger.info('I am a Sigleton')
-   }
+  public constructor() {}
 
    //ajout des methodes de l'interface Icrud
   findAll(): Intern []  {
