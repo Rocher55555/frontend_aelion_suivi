@@ -4,6 +4,7 @@ import { UiModule } from '../ui/ui.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     UiModule,
     ReactiveFormsModule,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HttpClientModule
   ]
 })
 
