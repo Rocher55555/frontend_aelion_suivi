@@ -11,12 +11,19 @@ import { Intern } from './../../../core/models/intern';
 export class InternTableComponent implements OnInit {
  public static sortOrder: number = 1;
 
+ public interns: Intern[] = [];
+
  // injection du service
   constructor(
-    public internService: InternService //dependency Injection (D de solid)
+    private internService: InternService //dependency Injection (D de solid)
   ) { }
 
   ngOnInit(): void {
+    this.internService.findAll()
+      .subscribe((interns: Intern[]) => {
+        this.interns = interns;
+      })
+
   }
 
   public onDelete (intern: Intern): void {
