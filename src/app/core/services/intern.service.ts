@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { Logger } from '../helpers/logger';
 import { ICrud } from '../interfaces/i-crud';
 import { Intern } from '../models/intern';
+import { environment } from './../../../environments/environment';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +15,33 @@ export class InternService implements ICrud<Intern>{
 
   public interns: Intern[] = []
 
-  public constructor() {}
+  public constructor(
+    private httpClient: HttpClient
+  ) {}
 
    //ajout des methodes de l'interface Icrud
-  findAll(): Intern []  {
-    //Your logic here
-    return this.interns;
+  findAll(): Observable<Intern[]>  {
+    return this.httpClient.get<any>(
+      `${environment.apiRoot}intern`
+    )
+    .pipe(
+      take(1), // recup tt le tableau
+      map((rawInterns:any) =>{    // map rxjs = transforme un Observable en un autre Observable
+        return rawInterns.map((rawIntern: any) => {
+          //J'ai besoin de créer un Objet InterModel à partir d'un rawIntern
+          const intern: Intern = new Intern();
+          intern.id = rawIntern.id;
+          intern.name = rawIntern.name;
+          intern.firstname = rawIntern.firstname;
+          intern.birthDate = new Date (rawIntern.birthDate);
+          intern.phoneNumber = rawIntern.birthDate;
+          intern.email = rawIntern.birthDate;
+          intern.address = rawIntern.address;
+          return intern;
+        })
+      })
+    )
+    ;
   }
 
   findOne(id: number): Intern | null {

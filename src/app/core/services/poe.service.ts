@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ICrud } from '../interfaces/i-crud';
 import { POE } from '../models/poe';
 
@@ -75,8 +76,8 @@ export class POEService implements ICrud<POE> {
 
 
 
-  findAll(): POE[] {
-    return this.poes
+  findAll(): Observable <POE[]> {
+    return of(this.poes);
   }
 
 /**
