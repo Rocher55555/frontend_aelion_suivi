@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Intern } from 'src/app/core/models/intern';
 import { InternService } from 'src/app/core/services/intern.service';
-
+import { AddSnackService } from 'src/app/core/services/add-snack.service';
 @Component({
   selector: 'app-intern-add',
   templateUrl: './intern-add.component.html',
@@ -16,7 +16,8 @@ export class InternAddComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private internService: InternService,
-    private router: Router
+    private router: Router,
+    private snacBar: AddSnackService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class InternAddComponent implements OnInit {
 
   //methode
   public onSubmit():void {
-    console.log(`Bout to send : {JSON.stringfy ${this.internForm.value}}`);
+    console.log(`Bout to send : { ${JSON.stringify(this.internForm.value)}}`);
     const nextId: number = this.internService.getNextId();
 
   //next we will have tocreate a new Intern Instance
@@ -46,8 +47,12 @@ export class InternAddComponent implements OnInit {
  // we will have to pass brand new intern to add method of our service
    this.internService.add(intern)
 
+  //snackbar
+  this.snacBar.show(`l'intern a bien été enregistrée`)
+
    //Finally go to the intern table component
    this.router.navigate (['/', 'interns']);
   }
 }
+
 

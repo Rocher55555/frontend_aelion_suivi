@@ -1,0 +1,14 @@
+<h2>poe-detail</h2>
+
+<ul *ngIf="poe">
+  <li> {{ poe.id}} </li>
+  <li> {{ poe.title}} </li>
+  <li> {{ poe.beginningDate  | date:"mediumDate" }} </li>
+  <li> {{ poe.endDate | date:"mediumDate" }} </li>
+</ul>
+
+<div>
+  <a [routerLink]="['/poes']">
+    voir la poe
+  </a>
+</div>

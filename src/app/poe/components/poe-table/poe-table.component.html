@@ -1,0 +1,32 @@
+<!-- <p>poe-table works!</p> -->
+<h1> Poe list</h1>
+
+<table>
+  <!-- entete -->
+  <thead >
+    <tr >
+      <th>#</th>
+      <th>Titre</th>
+      <th>Beginning date</th>
+      <th>End date</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+
+  <!-- corps du tableau -->
+  <tbody>
+    <tr *ngFor="let poe of poeService.poes">
+      <td> {{poe.id}} </td>
+      <td>
+        <a [routerLink]="['/', 'poe', poe.id]"> {{poe.title | uppercase}} </a>
+      </td>
+      <td> {{poe.beginningDate| date:"mediumDate"}} </td>
+      <td> {{poe.endDate| date:"mediumDate"}} </td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<button mat-raised-button color="primary" [routerLink]="['/', 'poe', 'manage', 'add']">
+  Add a poe
+</button>

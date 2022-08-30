@@ -39,9 +39,9 @@ export class InternService implements ICrud<Intern>{
     },
     {
       id:4,
-      name: 'Bear',
-      firstname: 'Jean',
-      email: 'jeanneau@hotmail.com',
+      name: 'Sebbah',
+      firstname: 'Elie',
+      email: 'elie@hotmail.com',
       phoneNumber: '+(33) 00 00 0 00 25',
       birthDate: new Date(19, 3, 16),
       address: '15, chemin de la galette'
@@ -72,7 +72,6 @@ ou
 */
 
   }
-
 
   public getItemNumber(): number {
     return this.interns.length
