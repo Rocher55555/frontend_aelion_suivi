@@ -35,15 +35,15 @@ export class InternService implements ICrud<Intern>{
 
    //ajout des methodes de l'interface Icrud
   findAll(): Observable<Intern[]>  {
-    let itemNumber: number = 0;        // on defini une variable
+    //let itemNumber: number = 0;        // on defini une variable
     return this.httpClient.get<any>(
       `${environment.apiRoot}intern` // http://217.0.0.1:5000/inter
     ) //je recupere mon observable<ça>
     .pipe(
       take(1), // recup tt le tableau
       map((rawInterns:any) =>{    // map rxjs = transforme un Observable en un autre Observable
-        itemNumber = rawInterns.length;
-        this.itemNumber$.next(itemNumber);  // emet la nouvelle valeur
+        //itemNumber = rawInterns.length;
+        this.itemNumber$.next(rawInterns.length);  // emet la nouvelle valeur
         return rawInterns.map((rawIntern: any) => {
           //J'ai besoin de créer un Objet InterModel à partir d'un rawIntern
           const intern: Intern = new Intern();
