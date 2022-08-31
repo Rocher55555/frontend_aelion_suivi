@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { InternService } from './../../../core/services/intern.service';
 import { Logger } from './../../../core/helpers/logger';
 import { Intern } from './../../../core/models/intern';
+import { take } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-intern-table',
@@ -22,12 +24,23 @@ export class InternTableComponent implements OnInit {
     this.internService.findAll()
       .subscribe((interns: Intern[]) => {
         this.interns = interns;
+        Logger.info(`je viens d'être notifie`)
       })
-
+      Logger.info(`Hello, je poursuis l'execution`)
   }
 
   public onDelete (intern: Intern): void {
-    this.internService.delete(intern);
+    this.internService.delete(intern)    // on veut just recup l'observable qui observe une rep http
+      .pipe(
+        take(1)    //take dans le pipe
+      ).subscribe((response: HttpResponse<any>) => {
+        if (response.status === 204){
+          this.interns.splice(
+            this.interns.findIndex((obj: Intern) => obj.id === intern.id),
+            1
+          );
+        }
+      })
   }
 
 

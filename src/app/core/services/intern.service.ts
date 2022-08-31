@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Logger } from '../helpers/logger';
@@ -6,6 +6,7 @@ import { ICrud } from '../interfaces/i-crud';
 import { Intern } from '../models/intern';
 import { environment } from './../../../environments/environment';
 import { map, take } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +16,29 @@ export class InternService implements ICrud<Intern>{
 
   public interns: Intern[] = []
 
+  private itemNumber$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   public constructor(
     private httpClient: HttpClient
   ) {}
 
+
+  public get itemNumber(): BehaviorSubject<number>{
+    return this.itemNumber$    //je retourne l'attribut
+  }
+
+
+
+
+
+
+
    //ajout des methodes de l'interface Icrud
   findAll(): Observable<Intern[]>  {
+    let itemNumber: number = 0        // on defini une variable
     return this.httpClient.get<any>(
-      `${environment.apiRoot}intern`
-    )
+      `${environment.apiRoot}intern` // http://217.0.0.1:5000/inter
+    ) //je recupere mon observable<ça>
     .pipe(
       take(1), // recup tt le tableau
       map((rawInterns:any) =>{    // map rxjs = transforme un Observable en un autre Observable
@@ -63,12 +78,16 @@ ou
     return this.interns.length
   }
 
-  public delete(intern: Intern): void {
-    this.interns.splice(
-      this.interns.indexOf(intern),
-      1
+  public delete(intern: Intern): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(
+      `${environment.apiRoot}intern`, // URI   http://127.0.0.1:5000/intern je m'adresse à mon back end avec le verbe delete
+      {
+        body: intern,
+        observe: 'response'
+      }
     );
   }
+
 
   public add(intern: Intern): void{
     if (this.findOne(intern.id!) === null) {

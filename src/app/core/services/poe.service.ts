@@ -1,7 +1,11 @@
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { ICrud } from '../interfaces/i-crud';
 import { POE } from '../models/poe';
+import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,29 +13,31 @@ import { POE } from '../models/poe';
 
 export class POEService implements ICrud<POE> {
 
-  public constructor() { }
+  public constructor(
+    private httpClient: HttpClient
+  ) { }
 
 
-  public poes: POE[] =[
-    {
-      id:1,
-      title: "fullstack Java",
-      beginningDate : new Date(2022, 7, 18),
-      endDate: new Date (2022, 9, 19)
-    },
-    {
-      id:2,
-      title: "SAP consultant",
-      beginningDate : new Date(2022, 5, 1),
-      endDate: new Date (2022, 8, 30)
-    },
-    {
-      id:3,
-      title: "Designer Web",
-      beginningDate : new Date(2022, 2, 9),
-      endDate: new Date (2022, 5, 10)
-    }
-  ]
+  public poes: POE[] =[]
+    // {
+    //   id:1,
+    //   title: "fullstack Java",
+    //   beginningDate : new Date(2022, 7, 18),
+    //   endDate: new Date (2022, 9, 19)
+    // },
+    // {
+    //   id:2,
+    //   title: "SAP consultant",
+    //   beginningDate : new Date(2022, 5, 1),
+    //   endDate: new Date (2022, 8, 30)
+    // },
+    // {
+    //   id:3,
+    //   title: "Designer Web",
+    //   beginningDate : new Date(2022, 2, 9),
+    //   endDate: new Date (2022, 5, 10)
+    // }
+  //]
 
 
   //ajout des méthodes de l'interface Icrud
@@ -56,7 +62,8 @@ export class POEService implements ICrud<POE> {
   }
 
 
-  delete(poe: POE): void {
+  delete(poe: POE): Observable<HttpResponse<any>> {
+    return of(new HttpResponse());
     this.poes.splice(
       this.poes.indexOf(poe),
      1
@@ -76,9 +83,41 @@ export class POEService implements ICrud<POE> {
 
 
 
+  // findAll(): Observable <POE[]> {
+  //   return of(this.poes);
+  // }
+
+
   findAll(): Observable <POE[]> {
-    return of(this.poes);
+    return this.httpClient.get<any>(
+      `${environment.apiRoot}poe`
+    ) //recup observable
+    .pipe(
+      take(1),
+      map((rawPoes:any) => {
+        return rawPoes.map((rawPoe:any) => {
+          const poe: POE = new POE();
+          poe.id = rawPoe.id;
+          poe.title = rawPoe.title;
+          poe.beginningDate = new Date (rawPoe.beginningDate);
+          poe.endDate = new Date (rawPoe.birthDate);
+          return poe;
+        })
+      }
+      )
+    )
   }
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Find a POE with this id
