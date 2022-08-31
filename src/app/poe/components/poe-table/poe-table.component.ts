@@ -13,7 +13,13 @@ export class POETableComponent implements OnInit {
     public poeService: POEService//dependency Injection (D de solid)
   ) { }
 
+  public poes : POE[] = [];
+
   ngOnInit(): void {
+    this.poeService.findAll()
+      .subscribe((poes: POE[]) => {
+        this.poes = poes;
+      })
   }
 
 }
