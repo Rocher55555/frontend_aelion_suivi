@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgePipe } from './pipes/age.pipe';
 import { InitialsDirective } from './directives/initials.directive';
+import { InitialPipe } from './pipes/initial.pipe';
 
 
 
@@ -15,7 +16,8 @@ import { InitialsDirective } from './directives/initials.directive';
     HeaderComponent,
     FooterComponent,
     AgePipe,
-    InitialsDirective
+    InitialsDirective,
+    InitialPipe
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { InitialsDirective } from './directives/initials.directive';
     FooterComponent,
     HttpClientModule,
     AgePipe,
+    InitialPipe,
     InitialsDirective
   ]
 })
