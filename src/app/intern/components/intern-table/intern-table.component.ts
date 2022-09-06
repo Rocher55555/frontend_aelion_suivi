@@ -15,6 +15,20 @@ export class InternTableComponent implements OnInit {
 
  public interns: Intern[] = [];
 
+ public bubbleConfig: any = {
+  height: '3em',
+  width: '3em',
+  lineHeight: '3em',
+  backgroundColor: 'rgba(236, 123, 28, 0.8)',
+  //backgroundColor: 'rgba(200, 10, 127, 0.7)',
+  fontWeight: 'bold',
+  borderRadius: '50%',
+  verticalAlign: 'middle',
+  textAlign: 'center',
+  color: '#fff'
+}
+
+
  // injection du service
   constructor(
     private internService: InternService //dependency Injection (D de solid)

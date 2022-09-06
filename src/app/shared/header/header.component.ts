@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { InternService } from 'src/app/core/services/intern.service';
 
 
@@ -10,12 +11,15 @@ import { InternService } from 'src/app/core/services/intern.service';
 
 export class HeaderComponent implements OnInit {
 
+public itemNumber$!: BehaviorSubject<number>
+
 // injection du service
 public constructor(
-  public internService: InternService
+  private internService: InternService
 ) {}
 
   ngOnInit(): void {
+    this.itemNumber$ = this.internService.itemNumber;
   }
 
 }

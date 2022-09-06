@@ -6,8 +6,8 @@
       <th>#</th>
       <th (click)="sortByName()">Lastname</th>
       <th>Firstname</th>
-      <th>Email</th>
       <th>Phone</th>
+      <th>Email</th>
       <th>address</th>
       <th>&nbsp;</th>
     </tr>
@@ -22,9 +22,19 @@
         <td> {{ intern.firstname }} </td>
         <td> {{ intern.phoneNumber }} </td>
         <td> {{ intern.email }} </td>
-        <td><span (click)="onDelete(intern)">xxxxxx</span></td>
+        <td>
+          <span (click)="onDelete(intern)">
+
+            <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
+
+          </span>
+        </td>
       </tr>
   </tbody>
 </table>
 
-<a [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</a>
+<!-- BUTTON -->
+
+<button mat-raised-button color="primary" [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</button>
+
+<!-- <a [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</a> -->

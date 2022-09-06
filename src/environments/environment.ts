@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiRoot:'http://127.0.0.1:5000/'
+  apiRoot:'http://127.0.0.1:5000/',
+  worldClockApi: 'http://worldclockapi.com/api/json/utc/now'
 };
 
 /*

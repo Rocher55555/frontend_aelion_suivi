@@ -5,18 +5,22 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AgePipe } from './pipes/age.pipe';
+import { InitialsDirective } from './directives/initials.directive';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AgePipe,
+    InitialsDirective
   ],
   imports: [
     CommonModule,
     UiModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 
   exports: [
@@ -24,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HeaderComponent,
     FooterComponent,
-    HttpClientModule
+    HttpClientModule,
+    AgePipe,
+    InitialsDirective
   ]
 })
 

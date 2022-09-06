@@ -55,15 +55,15 @@ export class POEService implements ICrud<POE> {
  * @param poe
  */
   update(poe: POE): void {
-    let oldPoe: POE | null = this.findOne(poe.id!);
-    if(oldPoe !== null){
-      oldPoe = {id: oldPoe.id, ...poe}
-    }
+    // let oldPoe: POE | null = this.findOne(poe.id!);
+    // if(oldPoe !== null){
+    //   oldPoe = {id: oldPoe.id, ...poe}
+    // }
   }
 
 
-  delete(poe: POE): Observable<HttpResponse<any>> {
-    return of(new HttpResponse());
+  delete(poe: POE): Observable<any> {
+    return of(null);
     this.poes.splice(
       this.poes.indexOf(poe),
      1
@@ -126,12 +126,13 @@ export class POEService implements ICrud<POE> {
  * @returns POE | null (if not find)
  */
 
-  findOne(id: number): POE | null {                         // poe| null : ce que ça va me return
-    //my logic here
-    const poe: POE | undefined = this.poes.find (           // arg en paramètre est une fct
-      (obj: POE) => obj.id === id                           // condition s'il rencontre cette condition le find (s'arrete de ange dans la const poe)
-    )                                                       // si pas trouvé : poe sera undefined
-    return (poe === undefined) ? null : poe;                // ? if : sinon
+  findOne(id: number): Observable <any> {
+    return of(null);                        // poe| null : ce que ça va me return
+
+  //  const poe: POE | undefined = this.poes.find (           // arg en paramètre est une fct
+  //    (obj: POE) => obj.id === id                           // condition s'il rencontre cette condition le find (s'arrete de ange dans la const poe)
+  //  )                                                       // si pas trouvé : poe sera undefined
+  //  return (poe === undefined) ? null : poe;                // ? if : sinon
   }
 
 

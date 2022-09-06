@@ -6,5 +6,5 @@ export interface ICrud<T> {
   update(item: T): void;
   delete(item : T): Observable<HttpResponse<any>>;
   findAll(): Observable<T[]>;
-  findOne(id: number): T | null;
+  findOne(id: number): Observable<T>;
 }

@@ -5,7 +5,7 @@ import { Logger } from '../helpers/logger';
 import { ICrud } from '../interfaces/i-crud';
 import { Intern } from '../models/intern';
 import { environment } from './../../../environments/environment';
-import { map, take } from 'rxjs/operators';
+import { map, take, throwIfEmpty } from 'rxjs/operators';
 import { BehaviorSubject, of } from 'rxjs';
 
 @Injectable({
@@ -51,8 +51,8 @@ export class InternService implements ICrud<Intern>{
           intern.name = rawIntern.name;
           intern.firstname = rawIntern.firstname;
           intern.birthDate = new Date (rawIntern.birthDate);
-          intern.phoneNumber = rawIntern.birthDate;
-          intern.email = rawIntern.birthDate;
+          intern.phoneNumber = rawIntern.phoneNumber;
+          intern.email = rawIntern.email;
           intern.address = rawIntern.address;
           return intern;
         })
@@ -61,11 +61,42 @@ export class InternService implements ICrud<Intern>{
     ;
   }
 
-  findOne(id: number): Intern | null {
-    const intern: Intern | undefined = this.interns.find(
-      (obj: Intern) => obj.id === id
+  findOne(id: number): Observable<Intern> {
+   return this.httpClient.get<any>(
+      `${environment.apiRoot}intern/${id}`,      // http://127.0.0.1/intern/999
+      {
+        observe: 'response'     // si on observe pas la rep, on aura pas le status
+      }
     )
-    return (intern === undefined) ? null : intern;
+    .pipe(
+      take(1),
+      map((response : HttpResponse<any>) => {
+        if (response.status === 200) {
+          //Récupère le "ça" et en faire un vrai Intern
+          const rawIntern: any = response.body;
+          const intern: Intern = new Intern();
+          intern.id = rawIntern.id;
+          intern.name = rawIntern.name;
+          intern.firstname = rawIntern.firstname;
+          intern.birthDate = new Date (rawIntern.birthDate);
+          intern.phoneNumber = rawIntern.phoneNumber;
+          intern.email = rawIntern.email;
+          intern.address = rawIntern.address;
+
+          return intern;
+        } else {
+          throw new Error(`Inter with ${id} was not found!`)
+        }
+      }),
+      throwIfEmpty(() => new Error (`Inter with ${id} was not found!`))
+    )
+  }
+    // const intern: Intern | undefined = this.interns.find(
+    //   (obj: Intern) => obj.id === id
+    // )
+    // return (intern === undefined) ? null : intern;
+
+
 /*
 ou
     if (intern === undefined) {
@@ -74,13 +105,14 @@ ou
     return intern;
 */
 
-  }
+
 
   public getItemNumber(): number {
     return this.interns.length
   }
 
   public delete(intern: Intern): Observable<HttpResponse<any>> {
+    this.itemNumber$.next(this.itemNumber$.getValue() - 1)
     return this.httpClient.delete(
       `${environment.apiRoot}intern`, // URI   http://127.0.0.1:5000/intern je m'adresse à mon back end avec le verbe delete
       {
@@ -98,10 +130,11 @@ ou
   }
 
   public update(intern:Intern): void{
-    let oldIntern: Intern | null = this.findOne(intern.id!);
-    if (oldIntern !== null) {
-      oldIntern = {id: oldIntern.id, ...intern};
-    }
+
+    // let oldIntern: Intern | null = this.findOne(intern.id!);
+    // if (oldIntern !== null) {
+    //   oldIntern = {id: oldIntern.id, ...intern};
+    // }
   }
 
   public getAll(): Intern[] {

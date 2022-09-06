@@ -1,23 +1,32 @@
 <h2>intern-detail</h2>
 
- <!-- <button [routerLink]="['/interns']">
-  Retour à Interns
-</button> -->
 
-<div>
+<!-- div was displayed when intern was up -->
+<!--<div *ngIf="intern" appInitials [intern]="intern"></div>-->     <!--à remettre-->
+
+<div *ngIf="intern" appInitials [intern]="intern" [config]="bubbleDetailConfig"></div>  <!--exo à effacer-->
+
+
+  <ul *ngIf="intern !== null">
+    <li> Name: {{intern.name}} </li>
+    <li> Firstname: {{intern.firstname}} </li>
+    <li> Email: {{intern.email}} </li>
+    <li> Phone Number: {{intern.phoneNumber}}  </li>
+    <li> Birthdate: {{intern.birthDate | date:"mediumDate"}} ({{intern.birthDate! | age | async }})</li>
+    <li> Adress: {{intern.address}} </li>
+  </ul>
+
+
+<!-------------------------- BOUTONS ---------------------------->
+
+<button mat-raised-button color="accent" [routerLink]="['/interns']">retour au tableau Interns</button>
+
+
+<!-- <div>
   <a [routerLink]="['/interns']" >
     retourner au tab
   </a>
-</div>
-
-  <ul *ngIf="intern !== null">
-    <li> {{intern.name}} </li>
-    <li> {{intern.firstname}} </li>
-    <li> {{intern.email}} </li>
-    <li> {{intern.phoneNumber}}  </li>
-    <li> {{intern.birthDate | date:"mediumDate"}} </li>
-    <li> {{intern.address}} </li>
-  </ul>
+</div> -->
 
 
 

@@ -1,16 +1,9 @@
 
-<mat-toolbar>SALUT
-  <span>
-    Interns #:2 {{internService.getItemNumber()}}
-  </span>
-</mat-toolbar>
 
 <mat-toolbar>
-  <span>
-    SuperApp
-  </span>
+  <span> SuperApp </span>
   <span class="example-spacer"></span>
   <span>
-    Interns #:2 {{internService.getItemNumber()}}
+    Interns # {{ itemNumber$ | async }}
   </span>
 </mat-toolbar>

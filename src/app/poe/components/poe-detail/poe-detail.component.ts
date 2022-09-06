@@ -29,7 +29,7 @@ export class POEDetailComponent implements OnInit, OnDestroy {
     this.subscribers.push(this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
         this._id = +paramMap.get('id')!;
-        this.poe = this.poeService.findOne(this._id);
+        //this.poe = this.poeService.findOne(this._id);
       }
     ))
   }
@@ -41,6 +41,7 @@ export class POEDetailComponent implements OnInit, OnDestroy {
     )
 
   }
+
   //ajout de la route avec navigate()
 
 }
