@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { POEService } from './../../../core/services/poe.service';
 import { POE } from 'src/app/core/models/poe';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-poe-table',
@@ -9,16 +10,20 @@ import { POE } from 'src/app/core/models/poe';
 })
 export class POETableComponent implements OnInit {
 
+  public poes : POE[] = [];
+
   constructor(
-    public poeService: POEService//dependency Injection (D de solid)
+    public poeService: POEService  //dependency Injection (D de solid)
   ) { }
 
-  public poes : POE[] = [];
 
   ngOnInit(): void {
     this.poeService.findAll()
-      .subscribe((poes: POE[]) => {
-        this.poes = poes;
+    .pipe(
+      take(1)
+    )
+    .subscribe((poes: POE[]) => {
+      this.poes = poes;
       })
   }
 

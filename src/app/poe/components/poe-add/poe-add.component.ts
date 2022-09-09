@@ -40,11 +40,9 @@ export class POEAddComponent implements OnInit {
   //methode perso
   public onSubmit():void {
     console.log(`Bout to send : { ${JSON.stringify(this.poeForm.value)}}`);
-    const nextId: number = this.poeService.getNextId();
 
   //next we will have tocreate a new Intern Instance
     const poe: POE = new POE();
-    poe.id = nextId;
     poe.title = this.poeForm.value.title;
 
  // we will have to pass brand new intern to add method of our service

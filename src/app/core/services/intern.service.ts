@@ -126,10 +126,25 @@ ou
   }
 
 
-  public add(intern: Intern): void{
-    if (this.findOne(intern.id!) === null) {
-      this.interns.push(intern);
-    }
+  public add(intern: Intern): Observable <Intern> {
+    return this.httpClient.post<Intern>(
+      `${environment.apiRoot}intern`,
+      intern
+    ).pipe(
+      take(1),
+      map((rawIntern: any) => {
+        const intern : Intern = new Intern();
+        intern.id = rawIntern.id;
+        intern.name = rawIntern.name;
+        intern.firstname = rawIntern.firstname;
+        intern.phoneNumber = rawIntern.phoneNumber;
+        intern.email = rawIntern.email;
+        intern.birthDate = new Date (rawIntern.birthDate);
+        intern.address = rawIntern.address;
+
+        return intern;
+      })
+    )
   }
 
   public update(intern:Intern): void{

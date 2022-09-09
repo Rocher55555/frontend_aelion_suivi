@@ -15,7 +15,7 @@
 
   <!-- corps du tableau -->
   <tbody>
-    <tr *ngFor="let poe of poeService.poes">
+    <tr *ngFor="let poe of poes">
       <td> {{poe.id}} </td>
       <td>
         <a [routerLink]="['/', 'poe', poe.id]"> {{poe.title | uppercase}} </a>
