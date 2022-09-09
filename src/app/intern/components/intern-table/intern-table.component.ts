@@ -5,6 +5,7 @@ import { Intern } from './../../../core/models/intern';
 import { take } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-intern-table',
   templateUrl: './intern-table.component.html',
@@ -79,6 +80,15 @@ export class InternTableComponent implements OnInit {
       return 0 * InternTableComponent.sortOrder;
     }
   }
+
+
+
+
+  //string helper
+
+
+
+
 
 
 

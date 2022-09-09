@@ -21,25 +21,25 @@ export class InitialsDirective implements OnInit {
     //en camelCase => pas de tiret
   }
 
-  private nativeElement: HTMLElement;
+  private nativeElement: HTMLElement;  //dans l'enveloppe => div en question
   private stylesMap: Map<string, string> = new Map<string, string>();
 
   constructor(
     private renderer: Renderer2,
-    elementRef: ElementRef
+    elementRef: ElementRef   //rel  à la div où est appliqué la directive eneveloppe
   ) {
     this.nativeElement = elementRef.nativeElement;
 
     //Sets styles as a Map
-    this.stylesMap
-      .set ('height', '2em')
-      .set ('width', '2em')
-      .set ('line-height', '2em')
-      .set ('background-color', 'rgba(127, 127, 127, 0.7')
-      .set ('font-weight', 'bold')
-      .set ('border-radius', '50%')
-      .set('vertical-align', 'middle')
-      .set ('text-align', 'center');
+    // this.stylesMap
+    //   .set ('height', '2em')
+    //   .set ('width', '2em')
+    //   .set ('line-height', '2em')
+    //   .set ('background-color', 'rgba(127, 127, 127, 0.7')
+    //   .set ('font-weight', 'bold')
+    //   .set ('border-radius', '50%')
+    //   .set('vertical-align', 'middle')
+    //   .set ('text-align', 'center');
       //chainage de méthodes car le type de retour est le même
   }
 

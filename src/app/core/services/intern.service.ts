@@ -7,6 +7,8 @@ import { Intern } from '../models/intern';
 import { environment } from './../../../environments/environment';
 import { map, take, throwIfEmpty } from 'rxjs/operators';
 import { BehaviorSubject, of } from 'rxjs';
+import { StringHelper } from '../helpers/string-helper';
+
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +51,8 @@ export class InternService implements ICrud<Intern>{
           const intern: Intern = new Intern();
           intern.id = rawIntern.id;
           intern.name = rawIntern.name;
-          intern.firstname = rawIntern.firstname;
+          intern.firstname = StringHelper.replaceSpaceWithDash(rawIntern.firstname); //
+          console.log(intern.firstname)  //voir dans la console
           intern.birthDate = new Date (rawIntern.birthDate);
           intern.phoneNumber = rawIntern.phoneNumber;
           intern.email = rawIntern.email;
