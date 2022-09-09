@@ -1,5 +1,6 @@
-
-
+import { ISanitizePuntuationStrategy } from "./strategies/i-sanitize-punctuation-strategy";
+import { SpaceAfterOnlyStrategy } from "./strategies/space-after-only-strategy";
+import { SpaceBeforeAndAfterStrategy } from "./strategies/space-before-and-after-strategy";
 export abstract class StringHelper {
 
 
@@ -130,30 +131,14 @@ public static sanitizeFirstName(firstname: string): string {
 
       const previousChar: string = initialValue[i - 1]; //va chercher le caractere le caractère  ( on veut avant la virgule)
       const nextChar : string = initialValue[i + 1];   //ira chercher le char après le char pour !?:
-
-        /*
-    Si ces ponctuations sont présentes ALORS
-    SI il n' a pas d'espace ALORS
-    Je rajoute un espace
-    SI pas d'espace après alors j'en ajoute un après
-    */
+      let strategy : ISanitizePuntuationStrategy
 
       if (initialValue[i] === ';' || initialValue[i] === ':' || initialValue[i] === '?'  || initialValue[i] === '!') {
-        console.log(`J'ai trouvé un truc à faire avec un espace av et ap`)
 
-        output = output.substring(0, output.length) //en string
-        let splitOutput : string[] = output.split('').reverse() //en tableau
-        output = splitOutput.join('').trimStart() //en string
-        splitOutput = output.split('').reverse() //en tableau
-        output = splitOutput.join('')   // version fini sans espaces
-
-
-        console.log(output +'a')
-        //initialValue = initialValue.reverse();
-        //initialValue.join('').trimStart();
-
-
-
+       strategy = (locale === 'fr') ? new SpaceBeforeAndAfterStrategy() : new SpaceAfterOnlyStrategy();
+        output = strategy.sanitize(i, initialValue, output)
+        console.log("ici c'est la version francaise" + output)
+/*
         if( previousChar !== ' '){
           output = output.substring(0, output.length) + ' ' + initialValue[i];
         } else {
@@ -162,16 +147,12 @@ public static sanitizeFirstName(firstname: string): string {
         if( nextChar !== ' ') {
           output = output.substring(0, output.length + 1) + ' ' ;
         }
-
+*/
       } else {
         if (initialValue[i] === ',' || initialValue[i] ==='.') {
-          console.log(`J'ai trouvé un truc à faire avec la virgule et le point`)
+          strategy = new SpaceAfterOnlyStrategy()
+          output = strategy.sanitize(i, initialValue, output)
 
-          if (previousChar === ' ') {
-            output = output.substring(0, output.length -1) + initialValue[i]  // 0 pour concervé le C maj, debut de la chaine parcourue
-          } else {
-            output = output + initialValue[i]
-          }
         } else {
             output = output + initialValue[i];
         }
