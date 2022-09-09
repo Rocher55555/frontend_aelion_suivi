@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InternService } from './core/services/intern.service';
+import { StringHelper } from './core/helpers/string-helper';
 
 @Component({
   selector: 'app-root',
@@ -22,5 +23,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.internService.findAll().subscribe();
+    console.log(StringHelper.sanitizePonctuation('Cc you            : how are you!'))
   }
 }
