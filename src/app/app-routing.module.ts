@@ -6,6 +6,7 @@ import { InternTableComponent } from './intern/components/intern-table/intern-ta
 import { POEAddComponent } from './poe/components/poe-add/poe-add.component';
 import { POEDetailComponent } from './poe/components/poe-detail/poe-detail.component';
 import { POETableComponent } from './poe/components/poe-table/poe-table.component';
+import { UserSigninComponent } from './user/components/user-signin/user-signin.component';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ export class AppRoutingModule {
   public static routes: Routes = [
     {
       path:'', //chemin vide
-      redirectTo: 'interns',
+      redirectTo: 'signin',
       pathMatch: 'full'
     },
     {
@@ -44,6 +45,11 @@ export class AppRoutingModule {
       component: POEAddComponent
     },
     {
+      path: 'signin',
+      component: UserSigninComponent
+    },
+
+    { //Fallback Route if pattern
       path: '**',
       redirectTo: 'interns',
       pathMatch: 'full'
