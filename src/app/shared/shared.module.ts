@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AgePipe } from './pipes/age.pipe';
 import { InitialsDirective } from './directives/initials.directive';
 import { InitialPipe } from './pipes/initial.pipe';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -23,6 +24,7 @@ import { InitialPipe } from './pipes/initial.pipe';
     CommonModule,
     UiModule,
     ReactiveFormsModule,
+    RouterModule
   ],
 
   exports: [
