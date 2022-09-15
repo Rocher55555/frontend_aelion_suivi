@@ -16,12 +16,12 @@
   <!-- corps du tableau -->
   <tbody>
     <tr *ngFor="let poe of poes">
-      <td> {{poe.id}} </td>
+      <td>{{ poe.id }} </td>
       <td>
         <a [routerLink]="['/', 'poe', poe.id]"> {{poe.title | uppercase}} </a>
       </td>
-      <td> {{poe.beginningDate| date:"mediumDate"}} </td>
-      <td> {{poe.endDate| date:"mediumDate"}} </td>
+      <td>{{poe.beginningDate| date:"mediumDate" }}</td>
+      <td>{{poe.endDate| date:"mediumDate" }}</td>
       <td>&nbsp;</td>
     </tr>
   </tbody>
