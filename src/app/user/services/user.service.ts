@@ -31,22 +31,18 @@ export class UserService {
   public signin(credentials: any): void {
     Logger.info(JSON.stringify(credentials));
     // Yassine : approche 1 boucle et comparaison
+
     for (const inUser of this.users) {
       if(inUser.login === credentials.login && inUser.pass === credentials.pass) {
         //user was found
-        this.user = new UserModel()                      //
+        this.user = new UserModel()
         this.user.setLogin(credentials.login);
         this.user.setToken(credentials.login + 'crypto.validité');
         break;
       }
     }
-
     //soit this.user est une instance de UserModel soit il est null
   }
-
-
-
-
 
     // Jean_Luc : find
     /*
@@ -59,8 +55,6 @@ export class UserService {
       this.user.setToken(credentials.login + 'xxxxx.yyyyyy');
     }
     */
-
-
 
   public signout(): void {
     this.user = null;
