@@ -8,6 +8,7 @@ import { POEDetailComponent } from './poe/components/poe-detail/poe-detail.compo
 import { POETableComponent } from './poe/components/poe-table/poe-table.component';
 import { UserSigninComponent } from './user/components/user-signin/user-signin.component';
 import { HasUserGuard } from './user/guards/has-user.guard';
+import { NoUserGuard } from './user/guards/no-user.guard';
 
 
 @NgModule({
@@ -19,31 +20,49 @@ export class AppRoutingModule {
     {
       path:'', //chemin vide
       redirectTo: 'signin',
-      pathMatch: 'full'
+      pathMatch: 'full',
     },
     {
       path: 'interns',
-      component: InternTableComponent
+      component: InternTableComponent,
+      canActivate:[
+        NoUserGuard
+      ]
     },
     {
       path: 'intern/:id',
-      component: InternDetailComponent
+      component: InternDetailComponent,
+      canActivate:[
+        NoUserGuard
+      ]
     },
     {
       path: 'intern/manage/add',
-      component: InternAddComponent
+      component: InternAddComponent,
+      canActivate:[
+        NoUserGuard
+      ]
     },
     {
       path: 'poes',
-      component: POETableComponent
+      component: POETableComponent,
+      canActivate:[
+        NoUserGuard
+      ]
     },
     {
       path: 'poe/:id',
-      component: POEDetailComponent
+      component: POEDetailComponent,
+      canActivate:[
+        NoUserGuard
+      ]
     },
     {
       path: 'poe/manage/add',
-      component: POEAddComponent
+      component: POEAddComponent,
+      canActivate:[
+        NoUserGuard
+      ]
     },
     {
       path: 'signin',
@@ -56,7 +75,7 @@ export class AppRoutingModule {
     { //Fallback Route if pattern was not found
       path: '**',
       redirectTo: 'interns',
-      pathMatch: 'full'
+      pathMatch: 'full',
     }
   ]
  };
