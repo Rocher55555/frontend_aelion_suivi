@@ -2,8 +2,40 @@
 <mat-toolbar>
   <span> SuperApp </span>
   <span class="example-spacer"></span>
-  <a [routerLink]="['/signin']">Signin</a>
+
+  <!-- si l'user pas identifié -->
+  <a id="signin" [routerLink]="['/signin']" *ngIf="!userService.isAuthenticated();  " >
+    <mat-icon>person</mat-icon>
+  </a>
+
+  <a *ngIf="userService.isAuthenticated() === true" (click)="userService.signout()" >
+    <mat-icon>no_accounts</mat-icon>
+  </a>
+
+
 
   <span> Interns # {{ itemNumber$ | async }}</span>
 
 </mat-toolbar>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

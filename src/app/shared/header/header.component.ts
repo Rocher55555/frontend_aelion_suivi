@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { InternService } from 'src/app/core/services/intern.service';
+import { UserService } from 'src/app/user/services/user.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ public itemNumber$!: BehaviorSubject<number>
 
 // injection du service
 public constructor(
+  public userService: UserService,        //connected or not?  public visibilité dans le html, si private seulement dans le ts
   private internService: InternService
 ) {}
 
