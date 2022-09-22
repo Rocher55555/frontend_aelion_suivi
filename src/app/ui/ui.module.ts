@@ -7,6 +7,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {MatListModule} from '@angular/material/list';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -16,13 +18,16 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
     CommonModule
   ] ,
   exports: [
-    ...UiModule.materials
+    ...UiModule.materials,
+    MatListModule,
+    MatProgressSpinnerModule
   ]
 
 
 })
 
 export class UiModule {
+
     public static materials = [
       MatFormFieldModule,
       MatInputModule,
@@ -30,6 +35,9 @@ export class UiModule {
       MatButtonModule,
       MatSelectModule,
       MatToolbarModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatListModule,
+      MatProgressSpinnerModule
     ]
+
  }
