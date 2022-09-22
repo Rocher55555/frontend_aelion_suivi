@@ -84,26 +84,28 @@ export class UserService {
    */
 
   public isAuthenticated(): boolean {
-    //1er solution
-    const userAsString: string | null = localStorage.getItem(this.STORAGE_KEY);
-    if (userAsString !== null) {
-
-      //il y a bien qq dans le localStorage à la cle auth_token
-      this.user = new UserModel();  // Je refais une instance d'un UserModel
-
-      //Je parse la chaine user pour récupérer un objet
-      const persistentUser: any = JSON.parse(userAsString) //Parse is the inverse of Stringify
-
-      // Je finis de définir this.user
-      this.user.setLogin(persistentUser.login)
-      this.user.setToken(persistentUser.login)
-    }
-
     if(this.user === null) {
       return false
     }
     return true;
   }
 
+  public getToken(): void {
+        //1er solution
+        const userAsString: string | null = localStorage.getItem(this.STORAGE_KEY);
+        if (userAsString !== null) {
+
+          //il y a bien qq dans le localStorage à la cle auth_token
+          this.user = new UserModel();  // Je refais une instance d'un UserModel
+
+          //Je parse la chaine user pour récupérer un objet
+          const persistentUser: any = JSON.parse(userAsString) //Parse is the inverse of Stringify
+
+          // Je finis de définir this.user
+          this.user.setLogin(persistentUser.login)
+          this.user.setToken(persistentUser.token)
+        }
+
+  }
 
 }

@@ -36,16 +36,15 @@ export class InternAddComponent implements OnInit {
 
   //methode
   public onSubmit():void {
-    console.log(`Bout to send : { ${JSON.stringify(this.internForm.value)}}`);
-    const nextId: number = this.internService.getNextId();
+    console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
 
-  //next we will have tocreate a new Intern Instance
+
+  //next we will have to create a new Intern Instance
    const intern: Intern = new Intern();
-   intern.id = nextId;
    intern.name = this.internForm.value.name;
 
  // we will have to pass brand new intern to add method of our service
-   this.internService.add(intern)
+   this.internService.add(intern).subscribe()
 
   //snackbar
   this.snacBar.show(`l'intern a bien été enregistrée`)
