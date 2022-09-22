@@ -6,6 +6,7 @@ import 'reflect-metadata';
 
 
 export class POE {
+
   @Expose()
   public id?: number;
   @Expose()
@@ -16,4 +17,11 @@ export class POE {
   @Expose()
   @Type(() => Date)
   public endDate? : Date;
+
+// ! deseriazation
+  public deserialize(plainPOE: any): POE {
+    const asClass: POE = plainToInstance(POE, plainPOE, {excludeExtraneousValues: true});
+    return asClass;
+    }
+
 }
