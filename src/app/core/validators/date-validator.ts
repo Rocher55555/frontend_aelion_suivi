@@ -10,20 +10,15 @@ import * as moment from "moment";
  */
 export class DateValidator {
 
-// ! ?????? purquoi return un null ???????
+
+//(control.errors !== null)  => si erreur ne retourne pas la Date
   public static dateNotLessThan(control: AbstractControl): { [key: string]: any } | null {
     if (control.errors !== null) {
       return null;
     }
     const userEnteredDate: moment.Moment = moment(control.value);
     const today: moment.Moment = moment();
-    return userEnteredDate.isSameOrAfter(today) ? { dateNotLessThan: true } : null;
+    return userEnteredDate.isSameOrAfter(today) ? { dateNotLessThan: true} : null;
   }
 
-  // public static dateNotLessThan (control: AbstractControl ): {[key:string]: any} | null {
-  //   const userEnteredDate : moment.Moment = moment(control.value);
-  //   const today: moment.Moment = moment();
-  //   return userEnteredDate .isSameOrAfter (today) ? {dateNotLessThan:true} : null;
-  // }
 }
-

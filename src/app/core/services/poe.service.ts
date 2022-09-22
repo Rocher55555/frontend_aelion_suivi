@@ -6,6 +6,7 @@ import { POE } from '../models/poe';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
+import { Logger } from '../helpers/logger';
 
 
 
@@ -32,12 +33,12 @@ export class POEService implements ICrud<POE> {
     ).pipe(
       take(1),
       map((rawPOE: any) => {
-      const poe : POE = new POE();
-      poe.id = rawPOE.id;
-      poe.title = rawPOE.title;
-      poe.beginningDate = new Date (rawPOE.beginDate);
-      poe.endDate = new Date (rawPOE.endDate);
-      return poe;   //vrai objet
+        const poe: POE = new POE();
+        poe.id = rawPOE.id;
+        poe.name = rawPOE.name;
+        poe.beginDate = new Date(rawPOE.beginDate);
+        poe.endDate = new Date(rawPOE.endDate);
+        return poe;   //vrai objet
       })
     );
   }
@@ -60,35 +61,42 @@ export class POEService implements ICrud<POE> {
   }
 
 
+  // findAll(): Observable<POE[]> {
+  //   return this.httpClient.get<POE[]>(
+  //     `${environment.apiRoot}poe`
+  //   ) //recup observable
+  //     .pipe(
+  //       take(1),
+  //       map((rawPoes: any[]) => {            //transforme tableau de ça d'où le any[]
+  //         return rawPoes.map((rawPoe: any) => {
+  //           const poe: POE = new POE();
+  //           poe.id = rawPoe.id;
+  //           poe.title = rawPoe.name;
+  //           poe.beginningDate = new Date(rawPoe.beginDate);
+  //           poe.endDate = new Date(rawPoe.endDate);
+  //           return poe;
+  //         })
+  //       }
+  //       )
+  //     )
+  // }
+
   findAll(): Observable<POE[]> {
-    return this.httpClient.get<POE[]>(
+    return this.httpClient.get<any>(
       `${environment.apiRoot}poe`
-    ) //recup observable
+    )//recup observable
       .pipe(
         take(1),
-        map((rawPoes: any[]) => {            //transforme tableau de ça d'où le any[]
+        map((rawPoes: any) => {                     //transforme tableau de ça d'où le any[]
           return rawPoes.map((rawPoe: any) => {
-            const poe: POE = new POE();
-            poe.id = rawPoe.id;
-            poe.title = rawPoe.name;
-            poe.beginningDate = new Date(rawPoe.beginDate);
-            poe.endDate = new Date(rawPoe.endDate);
-            return poe;
+            const asClass: POE = new POE().deserialize(rawPoe);
+            Logger.info(`Deserialized POE ${JSON.stringify(asClass)}`);
+            console.log(asClass)
+            return asClass;
           })
-        }
-        )
+        })
       )
   }
-
-
-
-
-
-
-
-
-
-
 
 
   /**
@@ -114,3 +122,5 @@ export class POEService implements ICrud<POE> {
 
 
 }
+
+

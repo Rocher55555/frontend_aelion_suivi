@@ -43,7 +43,7 @@ export class POEAddComponent implements OnInit {
 
   //next we will have tocreate a new Intern Instance
     const poe: POE = new POE();
-    poe.title = this.poeForm.value.title;
+    poe.name = this.poeForm.value.name;
 
  // we will have to pass brand new intern to add method of our service
    this.poeService.add(poe)

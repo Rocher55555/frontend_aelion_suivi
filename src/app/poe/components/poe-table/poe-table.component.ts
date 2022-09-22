@@ -26,5 +26,4 @@ export class POETableComponent implements OnInit {
       this.poes = poes;
       })
   }
-
 }

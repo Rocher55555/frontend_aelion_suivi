@@ -37,7 +37,7 @@ export class InternAddComponent implements OnInit {
               Validators.minLength(2)
             ]
           )
-        ], firstName: [
+        ], firstname: [
           '',
           [
             Validators.minLength(2)
@@ -77,13 +77,13 @@ export class InternAddComponent implements OnInit {
     intern.name = this.internForm.value.name;
 
     // we will have to pass brand new intern to add method of our service
-    this.internService.add(intern).subscribe()
+    this.internService.add(this.internForm.value).subscribe(() => {
+      //snackbar
+      this.snacBar.show(`l'intern a bien été enregistrée`)
 
-    //snackbar
-    this.snacBar.show(`l'intern a bien été enregistrée`)
-
-    //Finally go to the intern table component
-    this.router.navigate(['/', 'interns']);
+      //Finally go to the intern table component
+      this.router.navigate(['/', 'interns']);
+    })
   }
 
 
