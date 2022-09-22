@@ -7,6 +7,7 @@ import { AddSnackService } from 'src/app/core/services/add-snack.service';
 import * as moment from 'moment';
 import { Logger } from 'src/app/core/helpers/logger';
 import { DateValidator } from 'src/app/core/validators/date-validator';
+import { POEService } from 'src/app/core/services/poe.service';
 
 @Component({
   selector: 'app-intern-add',
@@ -21,7 +22,8 @@ export class InternAddComponent implements OnInit {
     private formBuilder: FormBuilder,
     private internService: InternService,
     private router: Router,
-    private snacBar: AddSnackService
+    private snacBar: AddSnackService,
+    private poeService: POEService
   ) { }
 
   ngOnInit(): void {
