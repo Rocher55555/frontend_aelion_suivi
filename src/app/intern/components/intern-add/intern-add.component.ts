@@ -8,6 +8,8 @@ import * as moment from 'moment';
 import { Logger } from 'src/app/core/helpers/logger';
 import { DateValidator } from 'src/app/core/validators/date-validator';
 import { POEService } from 'src/app/core/services/poe.service';
+import { take } from 'rxjs/operators';
+import { POE } from 'src/app/core/models/poe';
 
 @Component({
   selector: 'app-intern-add',
@@ -17,6 +19,7 @@ import { POEService } from 'src/app/core/services/poe.service';
 export class InternAddComponent implements OnInit {
 
   public internForm!: FormGroup;
+  public poes: POE[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,64 +30,79 @@ export class InternAddComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.internForm = this.formBuilder.group(
-      {
-        name: [
-          '', //Defaut value for the fied control
-          Validators.compose(
-            [
-              Validators.required,
-              Validators.minLength(2)
-            ]
-          )
-        ], firstname: [
-          '',
-          [
-            Validators.minLength(2)
-          ]
-        ], email: [
-          '',
-          Validators.compose(
-            [
-              Validators.required,
-              Validators.minLength(2)
-            ]
-          )
-        ], phoneNumber: [
-          '',
-          [
-            Validators.minLength(10)
 
-          ]
-        ], birthDate: [
-          '',
-          [
-            Validators.required,
-            DateValidator.dateNotLessThan
-          ]
-        ]
+    this.poeService.findAll()
+      .pipe(
+        take(1)
+      )
+      .subscribe((poes: POE[]) => {
+        Logger.info(`Got ${poes.length} poes`);
+        this.poes = poes;
+      })
+
+        this.internForm = this.formBuilder.group(
+          {
+            name: [
+              '', //Defaut value for the fied control
+              Validators.compose(
+                [
+                  Validators.required,
+                  Validators.minLength(2)
+                ]
+              )
+            ], firstname: [
+              '',
+              [
+                Validators.minLength(2)
+              ]
+            ], email: [
+              '',
+              Validators.compose(
+                [
+                  Validators.required,
+                  Validators.minLength(2)
+                ]
+              )
+            ], phoneNumber: [
+              '',
+              [
+                Validators.minLength(10)
+
+              ]
+            ], birthDate: [
+              '',
+              [
+                Validators.required,
+                DateValidator.dateNotLessThan
+              ]
+            ],  poes: [
+              '',
+              Validators .required
+              ],
+          }
+        );
       }
-    )
-  }
+
+
 
   //methode
   public onSubmit(): void {
-    console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
+        console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
 
 
-    //next we will have to create a new Intern Instance
-    const intern: Intern = new Intern();
-    intern.name = this.internForm.value.name;
+        //next we will have to create a new Intern Instance
+        const intern: Intern = new Intern();
+        intern.name = this.internForm.value.name;
 
-    // we will have to pass brand new intern to add method of our service
-    this.internService.add(this.internForm.value).subscribe(() => {
-      //snackbar
-      this.snacBar.show(`l'intern a bien été enregistrée`)
+        // we will have to pass brand new intern to add method of our service
+        this.internService.add(this.internForm.value).subscribe(() => {
+          //snackbar
+          this.snacBar.show(`l'intern a bien été enregistrée`)
 
-      //Finally go to the intern table component
-      this.router.navigate(['/', 'interns']);
-    })
-  }
+          //Finally go to the intern table component
+          this.router.navigate(['/', 'interns']);
+        })
+      }
 
 
 
