@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Intern } from 'src/app/core/models/intern';
@@ -10,16 +10,22 @@ import { DateValidator } from 'src/app/core/validators/date-validator';
 import { POEService } from 'src/app/core/services/poe.service';
 import { take } from 'rxjs/operators';
 import { POE } from 'src/app/core/models/poe';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-intern-add',
   templateUrl: './intern-add.component.html',
   styleUrls: ['./intern-add.component.scss']
 })
-export class InternAddComponent implements OnInit {
+
+
+// ! On destroy ?
+export class InternAddComponent implements OnInit, OnDestroy {
 
   public internForm!: FormGroup;
   public poes: POE[] = [];
+  private subscription!: Subscription;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,69 +46,113 @@ export class InternAddComponent implements OnInit {
         this.poes = poes;
       })
 
-        this.internForm = this.formBuilder.group(
-          {
-            name: [
-              '', //Defaut value for the fied control
-              Validators.compose(
-                [
-                  Validators.required,
-                  Validators.minLength(2)
-                ]
-              )
-            ], firstname: [
-              '',
-              [
-                Validators.minLength(2)
-              ]
-            ], email: [
-              '',
-              Validators.compose(
-                [
-                  Validators.required,
-                  Validators.minLength(2)
-                ]
-              )
-            ], phoneNumber: [
-              '',
-              [
-                Validators.minLength(10)
+    this.internForm = this.formBuilder.group(
+      {
+        name: [
+          '', //Defaut value for the fied control
+          Validators.compose(
+            [
+              Validators.required,
+              Validators.minLength(2)
+            ]
+          )
+        ], firstname: [
+          '',
+          [
+            Validators.minLength(2)
+          ]
+        ], email: [
+          '',
+          Validators.compose(
+            [
+              Validators.required,
+              Validators.minLength(2)
+            ]
+          )
+        ], phoneNumber: [
+          '',
+          [
+            Validators.minLength(10)
 
-              ]
-            ], birthDate: [
-              '',
-              [
-                Validators.required,
-                DateValidator.dateNotLessThan
-              ]
-            ],  poes: [
-              '',
-              Validators .required
-              ],
-          }
-        );
+          ]
+        ], birthDate: [
+          '',
+          [
+            Validators.required,
+            DateValidator.dateNotLessThan
+          ]
+        ], poes: [
+          '',
+          Validators.required
+        ],
       }
+    );
+  }
 
 
 
-  //methode
-  public onSubmit(): void {
-        console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
+  // MY 1st methode
+  // public onSubmit(): void {
+  //   console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
+
+  //   //next we will have to create a new Intern Instance
+  //   const intern: Intern = new Intern();
+  //   intern.name = this.internForm.value.name;
+
+  //   // we will have to pass brand new intern to add method of our service
+  //   this.internService.add(this.internForm.value).subscribe(() => {
+  //     //snackbar
+  //     this.snacBar.show(`l'intern a bien été enregistrée`)
+
+  //     //Finally go to the intern table component
+  //     this.router.navigate(['/', 'interns']);
+  //   })
 
 
-        //next we will have to create a new Intern Instance
-        const intern: Intern = new Intern();
-        intern.name = this.internForm.value.name;
+/**
+ *  subscription???
+ */
+    public onSubmit(): void {
+    console.log(`Bout to send : ${JSON.stringify(this.internForm.value)}`);
 
-        // we will have to pass brand new intern to add method of our service
-        this.internService.add(this.internForm.value).subscribe(() => {
-          //snackbar
-          this.snacBar.show(`l'intern a bien été enregistrée`)
+    //We'll have to pass brand new intern to the add method of our service and all affected  POEs
+    // We’ll need to pass an Intern with all affected POEs
+    this.subscription = this.internService.add(this.internForm!.value).subscribe((intern: Intern) => {
+      Logger.info(`An Intern was created: ${JSON.stringify(intern)}`);
+      //Load a snackbar(afficher le snackbar, on peut l'utiliser ou on veut)
+      this.snacBar.show(`Intern added successfully`);
 
-          //Finally go to the intern table component
-          this.router.navigate(['/', 'interns']);
-        })
-      }
+      //Finally go to the intern table component
+      this.router.navigate(['/', 'interns']);
+    });
+  }
+
+
+/**
+ *    Ca sert à quoi?
+ */
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -113,5 +163,5 @@ export class InternAddComponent implements OnInit {
   //      }
 
 
-}
+
 
