@@ -47,8 +47,8 @@ export class InternAddComponent implements OnInit {
         ], phoneNumber: [
           '',
           [
-            Validators.required,
-            InternAddComponent.validateBirthDate
+            Validators.minLength(10)
+
           ]
         ], birthDate: [
           '',
@@ -83,17 +83,13 @@ export class InternAddComponent implements OnInit {
   /**
    *
    * @param control
-   * @returns ValidationErrors or Null
+   * @returns ValidationErrors or Null (both are Object)
    */
   public static validateBirthDate(control: AbstractControl): {
     [key: string]: any
   } | null {
     return null;
   }
-
-
-
-
 
 }
 
