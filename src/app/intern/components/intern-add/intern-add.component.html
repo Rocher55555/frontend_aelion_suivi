@@ -23,10 +23,19 @@
 
   <mat-form-field>
     <mat-label>Birthdate</mat-label>
-    <input matInput type="date" formControlName="birthDate" placeholder="Your birthdate...">
+    <input matInput type="date" formControlName="birthDate" placeholder="Intern birth date..." autocomplete="do-not-fill">
+    <!-- afficher erreur -->
+
+    <mat-error *ngIf="internForm.controls['birthDate'].errors && internForm.controls['birthDate'].touched || internForm.controls['birthDate'].dirty">
+        <span *ngIf="internForm.controls['birthDate'].hasError('required')">Birthdate is required...</span>
+        <span *ngIf="internForm.controls['birthDate'].hasError('dateNotLessThan')">Birthdate cannot be superior than today...</span>
+    </mat-error>
+
   </mat-form-field>
 
   <button mat-raised-button color="accent" [disabled]="internForm.invalid">Save</button>
 </form>
 
 {{ internForm.value | json }}
+
+

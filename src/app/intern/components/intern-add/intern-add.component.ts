@@ -84,16 +84,15 @@ export class InternAddComponent implements OnInit {
 
   /**
    * Date => convertion in Moment Object
+   * if dateNotLessThan true => ça ne marche pas | null = ça passe
    * @param control
    * @returns ValidationErrors or Null (both are Object)
    */
 
-     public static validateBirthDate(control: AbstractControl): {[key:    /* control date de l'input */
-      string]: any} | null {
-       const userEnteredDate: moment.Moment = moment(control.value);   //recut la valeur
+     public static validateBirthDate(control: AbstractControl): {[key: string]: any} | null {
+       const userEnteredDate: moment.Moment = moment(control.value);   //recup la valeur
        const today: moment.Moment = moment();
-       return userEnteredDate.isSameOrAfter(today) ? {dateNotLessThan:
-      true} : null;
+       return userEnteredDate.isSameOrAfter(today) ? {dateNotLessThan: true} : null;
        }
 
 
