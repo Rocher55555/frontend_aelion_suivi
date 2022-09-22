@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Intern } from 'src/app/core/models/intern';
 import { InternService } from 'src/app/core/services/intern.service';
 import { AddSnackService } from 'src/app/core/services/add-snack.service';
+import * as moment from 'moment';
+import { Logger } from 'src/app/core/helpers/logger';
 @Component({
   selector: 'app-intern-add',
   templateUrl: './intern-add.component.html',
@@ -81,15 +83,19 @@ export class InternAddComponent implements OnInit {
   }
 
   /**
-   *
+   * Date => convertion in Moment Object
    * @param control
    * @returns ValidationErrors or Null (both are Object)
    */
-  public static validateBirthDate(control: AbstractControl): {
-    [key: string]: any
-  } | null {
-    return null;
-  }
+
+     public static validateBirthDate(control: AbstractControl): {[key:    /* control date de l'input */
+      string]: any} | null {
+       const userEnteredDate: moment.Moment = moment(control.value);   //recut la valeur
+       const today: moment.Moment = moment();
+       return userEnteredDate.isSameOrAfter(today) ? {dateNotLessThan:
+      true} : null;
+       }
+
 
 }
 
