@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Intern } from 'src/app/core/models/intern';
 import { InternService } from 'src/app/core/services/intern.service';
@@ -52,6 +52,22 @@ export class InternAddComponent implements OnInit {
    //Finally go to the intern table component
    this.router.navigate (['/', 'interns']);
   }
+
+  /**
+   *
+   * @param control
+   * @returns ValidationErrors or Null
+   */
+  public static validateBirthDate(control: AbstractControl): {
+    [key: string]: any} | null
+    {
+    return null;
+    }
+
+
+
+
+
 }
 
 
