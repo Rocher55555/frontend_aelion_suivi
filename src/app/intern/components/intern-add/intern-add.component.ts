@@ -6,6 +6,8 @@ import { InternService } from 'src/app/core/services/intern.service';
 import { AddSnackService } from 'src/app/core/services/add-snack.service';
 import * as moment from 'moment';
 import { Logger } from 'src/app/core/helpers/logger';
+import { DateValidator } from 'src/app/core/validators/date-validator';
+
 @Component({
   selector: 'app-intern-add',
   templateUrl: './intern-add.component.html',
@@ -56,7 +58,7 @@ export class InternAddComponent implements OnInit {
           '',
           [
             Validators.required,
-            InternAddComponent.validateBirthDate
+            DateValidator.dateNotLessThan
           ]
         ]
       }
@@ -82,20 +84,14 @@ export class InternAddComponent implements OnInit {
     this.router.navigate(['/', 'interns']);
   }
 
-  /**
-   * Date => convertion in Moment Object
-   * if dateNotLessThan true => ça ne marche pas | null = ça passe
-   * @param control
-   * @returns ValidationErrors or Null (both are Object)
-   */
 
-     public static validateBirthDate(control: AbstractControl): {[key: string]: any} | null {
-       const userEnteredDate: moment.Moment = moment(control.value);   //recup la valeur
-       const today: moment.Moment = moment();
-       return userEnteredDate.isSameOrAfter(today) ? {dateNotLessThan: true} : null;
-       }
+
+  //    public static validateBirthDate(control: AbstractControl): {[key: string]: any} | null {
+  //      const userEnteredDate: moment.Moment = moment(control.value);   //recup la valeur
+  //      const today: moment.Moment = moment();
+  //      return userEnteredDate.isSameOrAfter(today) ? {dateNotLessThan: true} : null;
+  //      }
 
 
 }
-
 
