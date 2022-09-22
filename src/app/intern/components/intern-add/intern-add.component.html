@@ -31,11 +31,24 @@
         <span *ngIf="internForm.controls['birthDate'].hasError('dateNotLessThan')">Birthdate cannot be superior than today...</span>
     </mat-error>
 
+      <!-- diapo 21 -->
+  <fieldset title="Affectations">
+    <legend>Affectations</legend>
+    <div class="form-group">
+    <p>Affecter aux POE</p>
+    <mat-selection-list formControlName="poes">
+    <mat-list-option *ngFor="let poe of poes" [value]="poe">
+    {{ poe.name }}
+    </mat-list-option>
+    </mat-selection-list>
+    </div>
+   </fieldset>
+
   </mat-form-field>
+
+
 
   <button mat-raised-button color="accent" [disabled]="internForm.invalid">Save</button>
 </form>
 
 {{ internForm.value | json }}
-
-
