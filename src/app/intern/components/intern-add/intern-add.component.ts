@@ -21,7 +21,8 @@ export class InternAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.internForm = this.formBuilder.group({
+    this.internForm = this.formBuilder.group(
+    {
       name:[
         '', //Defaut value for the fied control
         Validators.compose(
@@ -30,8 +31,18 @@ export class InternAddComponent implements OnInit {
             Validators.minLength(2)
           ]
         )
-      ]
-    })
+      ],
+      birthDate: [
+        '',
+        [
+        Validators.required,
+
+       InternAddComponent.validateBirthDate
+
+        ]
+      ],
+    }
+    )
   }
 
   //methode

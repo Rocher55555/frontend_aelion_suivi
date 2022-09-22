@@ -1,6 +1,11 @@
 <form [formGroup]="internForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
+    <mat-label>Name</mat-label>
     <input matInput formControlName="name" placeholder="Your name...">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Birthdate</mat-label>
+    <input matInput formControlName="birthDate" placeholder="Your birthdate...">
   </mat-form-field>
   <button mat-raised-button color="accent" [disabled]="internForm.invalid">Save</button>
 </form>
