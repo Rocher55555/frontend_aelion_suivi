@@ -18,50 +18,66 @@ export class InternAddComponent implements OnInit {
     private internService: InternService,
     private router: Router,
     private snacBar: AddSnackService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.internForm = this.formBuilder.group(
-    {
-      name:[
-        '', //Defaut value for the fied control
-        Validators.compose(
+      {
+        name: [
+          '', //Defaut value for the fied control
+          Validators.compose(
+            [
+              Validators.required,
+              Validators.minLength(2)
+            ]
+          )
+        ], firstName: [
+          '',
           [
-            Validators.required,
             Validators.minLength(2)
           ]
-        )
-      ],
-      birthDate: [
-        '',
-        [
-        Validators.required,
-
-       InternAddComponent.validateBirthDate
-
+        ], email: [
+          '',
+          Validators.compose(
+            [
+              Validators.required,
+              Validators.minLength(2)
+            ]
+          )
+        ], phoneNumber: [
+          '',
+          [
+            Validators.required,
+            InternAddComponent.validateBirthDate
+          ]
+        ], birthDate: [
+          '',
+          [
+            Validators.required,
+            InternAddComponent.validateBirthDate
+          ]
         ]
-      ],
-    }
+      }
     )
   }
 
   //methode
-  public onSubmit():void {
+  public onSubmit(): void {
     console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
 
 
-  //next we will have to create a new Intern Instance
-   const intern: Intern = new Intern();
-   intern.name = this.internForm.value.name;
+    //next we will have to create a new Intern Instance
+    const intern: Intern = new Intern();
+    intern.name = this.internForm.value.name;
 
- // we will have to pass brand new intern to add method of our service
-   this.internService.add(intern).subscribe()
+    // we will have to pass brand new intern to add method of our service
+    this.internService.add(intern).subscribe()
 
-  //snackbar
-  this.snacBar.show(`l'intern a bien été enregistrée`)
+    //snackbar
+    this.snacBar.show(`l'intern a bien été enregistrée`)
 
-   //Finally go to the intern table component
-   this.router.navigate (['/', 'interns']);
+    //Finally go to the intern table component
+    this.router.navigate(['/', 'interns']);
   }
 
   /**
@@ -70,10 +86,10 @@ export class InternAddComponent implements OnInit {
    * @returns ValidationErrors or Null
    */
   public static validateBirthDate(control: AbstractControl): {
-    [key: string]: any} | null
-    {
+    [key: string]: any
+  } | null {
     return null;
-    }
+  }
 
 
 

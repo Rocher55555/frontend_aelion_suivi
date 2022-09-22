@@ -1,12 +1,31 @@
 <form [formGroup]="internForm" (ngSubmit)="onSubmit()">
+
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" placeholder="Your name...">
   </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Firstname</mat-label>
+    <input matInput  formControlName="firstName" placeholder="Your Firstname...">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" placeholder="Your email...">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Phone Number</mat-label>
+    <input matInput type="tel" formControlName="phoneNumber" placeholder="Your Phone Number...">
+  </mat-form-field>
+
+
   <mat-form-field>
     <mat-label>Birthdate</mat-label>
-    <input matInput formControlName="birthDate" placeholder="Your birthdate...">
+    <input matInput type="date" formControlName="birthDate" placeholder="Your birthdate...">
   </mat-form-field>
+
   <button mat-raised-button color="accent" [disabled]="internForm.invalid">Save</button>
 </form>
 
