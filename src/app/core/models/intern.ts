@@ -1,6 +1,9 @@
 import { Expose, plainToInstance, Type } from "class-transformer";
+import { Serializable } from "../interfaces/serializable";
 
-export class Intern {
+export class Intern implements Serializable {
+
+
   @Expose()
   public id?: number;
   @Expose()
@@ -10,7 +13,6 @@ export class Intern {
   @Expose()
   public phoneNumber?: string;
   @Expose()
-  @Type(() => Date)
   public email?: string;
   @Expose()
   @Type(() => Date)
@@ -19,12 +21,11 @@ export class Intern {
   public address?: string;
 
 
-
-// deseriazation
-public deserialize(plainIntern: any): Intern {
-  const asClass: Intern = plainToInstance(Intern, plainIntern, {excludeExtraneousValues: true});
-  return asClass;
+//deseriazation
+  public deserialize(plainIntern: any): Intern {
+    const asClass: Intern = plainToInstance(Intern, plainIntern, {excludeExtraneousValues: true});
+    return asClass;
   }
-
-
 }
+
+

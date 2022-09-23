@@ -1,50 +1,68 @@
+
 <form [formGroup]="internForm" (ngSubmit)="onSubmit()">
+  <fieldset title="Identity">
+    <legend>Identity</legend>
 
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" placeholder="Your name...">
-  </mat-form-field>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Your name...">
+      </mat-form-field>
+    </div>
 
-  <mat-form-field>
-    <mat-label>Firstname</mat-label>
-    <input matInput  formControlName="firstname" placeholder="Your Firstname...">
-  </mat-form-field>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput  formControlName="firstname" placeholder="Your Firstname...">
+      </mat-form-field>
+    </div>
 
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput type="email" formControlName="email" placeholder="Your email...">
-  </mat-form-field>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Your email...">
+      </mat-form-field>
+    </div>
 
-  <mat-form-field>
-    <mat-label>Phone Number</mat-label>
-    <input matInput type="tel" formControlName="phoneNumber" placeholder="Your Phone Number...">
-  </mat-form-field>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Phone Number</mat-label>
+        <input matInput type="tel" formControlName="phoneNumber" placeholder="Your Phone Number...">
+      </mat-form-field>
+    </div>
 
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Birthdate</mat-label>
+        <input matInput type="date" formControlName="birthDate" placeholder="Intern birth date..." autocomplete="do-not-fill">
 
-  <mat-form-field>
-    <mat-label>Birthdate</mat-label>
-    <input matInput type="date" formControlName="birthDate" placeholder="Intern birth date..." autocomplete="do-not-fill">
-    <!-- afficher erreur -->
+        <!-- afficher erreur -->
+            <mat-error *ngIf="internForm.controls['birthDate'].errors && internForm.controls['birthDate'].touched || internForm.controls['birthDate'].dirty">
+            <span *ngIf="internForm.controls['birthDate'].hasError('required')">Birthdate is required...</span>
+            <span *ngIf="internForm.controls['birthDate'].hasError('dateNotLessThan')">Birthdate cannot be superior than today...</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-    <mat-error *ngIf="internForm.controls['birthDate'].errors && internForm.controls['birthDate'].touched || internForm.controls['birthDate'].dirty">
-        <span *ngIf="internForm.controls['birthDate'].hasError('required')">Birthdate is required...</span>
-        <span *ngIf="internForm.controls['birthDate'].hasError('dateNotLessThan')">Birthdate cannot be superior than today...</span>
-    </mat-error>
+</fieldset>
 
       <!-- diapo 21 -->
-  <fieldset title="Affectations">
-    <legend>Affectations</legend>
-    <div class="form-group">
-    <p>Affecter aux POE</p>
-    <mat-selection-list formControlName="poes">
-    <mat-list-option *ngFor="let poe of poes" [value]="poe">
-    {{ poe.name }}
-    </mat-list-option>
-    </mat-selection-list>
-    </div>
-   </fieldset>
+  <div class="form-group">
 
-  </mat-form-field>
+    <fieldset title="Affectations">
+      <legend>Affectations</legend>
+      <div class="form-group">
+      <p>Affecter aux POE</p>
+      <mat-selection-list formControlName="poes">
+      <mat-list-option *ngFor="let poe of poes" [value]="poe">
+      {{ poe.name }}
+      </mat-list-option>
+      </mat-selection-list>
+      </div>
+    </fieldset>
+
+</div>
+
 
 
 

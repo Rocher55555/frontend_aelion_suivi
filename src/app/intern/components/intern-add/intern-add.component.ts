@@ -59,22 +59,20 @@ export class InternAddComponent implements OnInit, OnDestroy {
         ], firstname: [
           '',
           [
+            Validators.required,    // nécessaire car il existe un pipe et directive pour la boule INITIAL
             Validators.minLength(2)
           ]
-        ], email: [
+        ], email: [  // magie.tacher@bigben.co.uk
           '',
           Validators.compose(
             [
               Validators.required,
-              Validators.minLength(2)
+              Validators.minLength(2),
+              Validators.pattern(new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}'))
             ]
           )
         ], phoneNumber: [
           '',
-          [
-            Validators.minLength(10)
-
-          ]
         ], birthDate: [
           '',
           [
@@ -110,8 +108,9 @@ export class InternAddComponent implements OnInit, OnDestroy {
 
 
 /**
- *  subscription???
+ *
  */
+// ! subscription??  je souscrit à un fi d'intern
     public onSubmit(): void {
     console.log(`Bout to send : ${JSON.stringify(this.internForm.value)}`);
 
@@ -129,8 +128,9 @@ export class InternAddComponent implements OnInit, OnDestroy {
 
 
 /**
- *    Ca sert à quoi?
+ *
  */
+// ! Ca sert à quoi ?  ngOnDestroy cycle de vie d'un composant /  unsubscribe() : desinscription
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

@@ -1,6 +1,6 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, ValidationErrors } from "@angular/forms";
 import * as moment from "moment";
-
+import { Logger } from "../helpers/logger";
 
 /**
  * Date => convertion in Moment Object
@@ -8,17 +8,21 @@ import * as moment from "moment";
  * @param control
  * @returns ValidationErrors or Null (both are Object)
  */
+
 export class DateValidator {
+  public static dateNotLessThan(control: AbstractControl): ValidationErrors | null {
+// si rien sais par le user, je ne continu pas si que des espaces ... le trim va les enlever
+// pas de saison pas de modif en objet moment
+      if (control.value.trim() === '') {
+          return null;
+      }
 
+      const userEnteredDate: moment.Moment = moment(control.value);
 
-//(control.errors !== null)  => si erreur ne retourne pas la Date
-  public static dateNotLessThan(control: AbstractControl): { [key: string]: any } | null {
-    if (control.errors !== null) {
+      const today: moment.Moment = moment();
+      if (userEnteredDate.isSameOrAfter(today)) {
+          return {dateNotLessThan: true}
+      }
       return null;
-    }
-    const userEnteredDate: moment.Moment = moment(control.value);
-    const today: moment.Moment = moment();
-    return userEnteredDate.isSameOrAfter(today) ? { dateNotLessThan: true} : null;
   }
-
 }
