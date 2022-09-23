@@ -19,11 +19,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   ] ,
   exports: [
     ...UiModule.materials,
-    MatListModule,
-    MatProgressSpinnerModule
   ]
-
-
 })
 
 export class UiModule {
