@@ -1,7 +1,7 @@
 import { Expose, plainToInstance, Type } from "class-transformer";
 import { Serializable } from "../interfaces/serializable";
 
-export class Intern implements Serializable {
+export class Intern implements Serializable<Intern> {
 
 
   @Expose()

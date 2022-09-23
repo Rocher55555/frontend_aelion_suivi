@@ -32,10 +32,8 @@ export class InternService implements ICrud<Intern>{
 
 
 
-
-
-
   //ajout des methodes de l'interface Icrud
+
   findAll(): Observable<Intern[]> {
     //let itemNumber: number = 0;        // on defini une variable
     return this.httpClient.get<any>(
@@ -49,20 +47,23 @@ export class InternService implements ICrud<Intern>{
           return rawInterns.map((rawIntern: any) => {
             //J'ai besoin de créer un Objet InterModel à partir d'un rawIntern
             const intern: Intern = new Intern();
-            intern.id = rawIntern.id;
-            intern.name = rawIntern.name;
-            intern.firstname = StringHelper.replaceSpaceWithDash(rawIntern.firstname); //
-            console.log(intern.firstname)  //voir dans la console
-            intern.birthDate = new Date(rawIntern.birthDate);
-            intern.phoneNumber = rawIntern.phoneNumber;
-            intern.email = rawIntern.email;
-            intern.address = rawIntern.address;
-            return intern;
+            // intern.id = rawIntern.id;
+            // intern.name = rawIntern.name;
+            // intern.firstname = StringHelper.replaceSpaceWithDash(rawIntern.firstname); //
+            // console.log(intern.firstname)  //voir dans la console
+            // intern.birthDate = new Date(rawIntern.birthDate);
+            // intern.phoneNumber = rawIntern.phoneNumber;
+            // intern.email = rawIntern.email;
+            // intern.address = rawIntern.address;
+            return new Intern().deserialize(rawIntern);;
           })
         })
       )
       ;
   }
+
+
+
 
   findOne(id: number): Observable<Intern> {
     return this.httpClient.get<any>(
@@ -75,18 +76,8 @@ export class InternService implements ICrud<Intern>{
         take(1),
         map((response: HttpResponse<any>) => {
           if (response.status === 200) {
-            //Récupère le "ça" et en faire un vrai Intern
             const rawIntern: any = response.body;
-            const intern: Intern = new Intern();
-            intern.id = rawIntern.id;
-            intern.name = rawIntern.name;
-            intern.firstname = rawIntern.firstname;
-            intern.birthDate = new Date(rawIntern.birthDate);
-            intern.phoneNumber = rawIntern.phoneNumber;
-            intern.email = rawIntern.email;
-            intern.address = rawIntern.address;
-
-            return intern;
+            return  new Intern().deserialize(rawIntern);
           } else {
             throw new Error(`Inter with ${id} was not found!`)
           }
@@ -94,25 +85,48 @@ export class InternService implements ICrud<Intern>{
         throwIfEmpty(() => new Error(`Inter with ${id} was not found!`))
       )
   }
-  // const intern: Intern | undefined = this.interns.find(
-  //   (obj: Intern) => obj.id === id
-  // )
-  // return (intern === undefined) ? null : intern;
 
 
-  /*
-  ou
-      if (intern === undefined) {
-        return null;
-      }
-      return intern;
-  */
+
+// METHODE FINDONE before the deserialize methode
+
+  // findOne(id: number): Observable<Intern> {
+  //   return this.httpClient.get<any>(
+  //     `${environment.apiRoot}intern/${id}`,      // http://127.0.0.1/intern/999
+  //     {
+  //       observe: 'response'     // si on observe pas la rep, on aura pas le status
+  //     }
+  //   )
+  //     .pipe(
+  //       take(1),
+  //       map((response: HttpResponse<any>) => {
+  //         if (response.status === 200) {
+  //           //Récupère le "ça" et en faire un vrai Intern
+  //           const rawIntern: any = response.body;
+  //           const intern: Intern = new Intern();
+  //           intern.id = rawIntern.id;
+  //           intern.name = rawIntern.name;
+  //           intern.firstname = rawIntern.firstname;
+  //           intern.birthDate = new Date(rawIntern.birthDate);
+  //           intern.phoneNumber = rawIntern.phoneNumber;
+  //           intern.email = rawIntern.email;
+  //           intern.address = rawIntern.address;
+
+  //           return intern;
+  //         } else {
+  //           throw new Error(`Inter with ${id} was not found!`)
+  //         }
+  //       }),
+  //       throwIfEmpty(() => new Error(`Inter with ${id} was not found!`))
+  //     )
+  // }
 
 
 
   public getItemNumber(): number {
     return this.interns.length
   }
+
 
   public delete(intern: Intern): Observable<HttpResponse<any>> {
     this.itemNumber$.next(this.itemNumber$.getValue() - 1)
@@ -125,8 +139,9 @@ export class InternService implements ICrud<Intern>{
     );
   }
 
-  //add with deserialize
 
+
+  //add with deserialize
   public add(internData: unknown): Observable<Intern> {
     return this.httpClient.post<any>(
       `${environment.apiRoot}intern`,
@@ -141,7 +156,8 @@ export class InternService implements ICrud<Intern>{
   }
 
 
-  // //before
+//METHODE ADD BEFORE DESERIALIZE()
+
   //   public add(intern: Intern): Observable <Intern> {
   //     return this.httpClient.post<Intern>(
   //       `${environment.apiRoot}intern`,
@@ -162,9 +178,6 @@ export class InternService implements ICrud<Intern>{
   //       })
   //     )
   //   }
-
-
-
 
 
   public update(intern: Intern): void {

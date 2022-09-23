@@ -7,7 +7,7 @@ import { Serializable } from "../interfaces/serializable";
 //POJO => plain Object
 
 
-export class POE implements Serializable  {
+export class POE implements Serializable<POE>  {
 
   @Expose()
   public id?: number;

@@ -1,6 +1,6 @@
-export interface Serializable {
+export interface Serializable<T> {
 
   // deseriazation
-deserialize(plainObj: any): any;
+deserialize(plainObject: any): T;
 }
 
