@@ -60,7 +60,7 @@ export class POEService implements ICrud<POE> {
     return of(new HttpResponse());
   }
 
-
+   // FINALL BEFORE DESERIALIZE
   // findAll(): Observable<POE[]> {
   //   return this.httpClient.get<POE[]>(
   //     `${environment.apiRoot}poe`
@@ -89,9 +89,10 @@ export class POEService implements ICrud<POE> {
         take(1),
         map((rawPoes: any) => {                     //transforme tableau de ça d'où le any[]
           return rawPoes.map((rawPoe: any) => {
+
             const asClass: POE = new POE().deserialize(rawPoe);
+
             Logger.info(`Deserialized POE ${JSON.stringify(asClass)}`);
-            console.log(asClass)
             return asClass;
           })
         })
