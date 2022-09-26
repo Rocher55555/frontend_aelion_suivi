@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 
 
-// ! On destroy ?
+// ! Oninit : initialize !== On destroy => delete
 export class InternAddComponent implements OnInit, OnDestroy {
 
   public internForm!: FormGroup;
@@ -110,7 +110,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
 /**
  *
  */
-// ! subscription??  je souscrit à un fi d'intern
+// ? subscription??  je souscrit à un fi d'intern
     public onSubmit(): void {
     console.log(`Bout to send : ${JSON.stringify(this.internForm.value)}`);
 
@@ -130,7 +130,9 @@ export class InternAddComponent implements OnInit, OnDestroy {
 /**
  *
  */
-// ! Ca sert à quoi ?  ngOnDestroy cycle de vie d'un composant /  unsubscribe() : desinscription
+// ? Ca sert à quoi ?  ngOnDestroy cycle de vie d'un composant / take one : prend et s'arrete et si pas de take one .... il faut arrete de souscrire/
+// ? unsubscribe() : desinscription
+
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
