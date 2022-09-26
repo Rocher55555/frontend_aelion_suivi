@@ -45,8 +45,8 @@ export class InternService implements ICrud<Intern>{
           //itemNumber = rawInterns.length;
           this.itemNumber$.next(rawInterns.length);  // emet la nouvelle valeur
           return rawInterns.map((rawIntern: any) => {
-            //J'ai besoin de créer un Objet InterModel à partir d'un rawIntern
-            const intern: Intern = new Intern();
+            // J'ai besoin de créer un Objet InterModel à partir d'un rawIntern
+            // const intern: Intern = new Intern();
             // intern.id = rawIntern.id;
             // intern.name = rawIntern.name;
             // intern.firstname = StringHelper.replaceSpaceWithDash(rawIntern.firstname); //
@@ -55,7 +55,7 @@ export class InternService implements ICrud<Intern>{
             // intern.phoneNumber = rawIntern.phoneNumber;
             // intern.email = rawIntern.email;
             // intern.address = rawIntern.address;
-            return new Intern().deserialize(rawIntern);;
+            return new Intern().deserialize(rawIntern);
           })
         })
       )
@@ -203,6 +203,15 @@ export class InternService implements ICrud<Intern>{
         return (intern1.id! - intern2.id!) * -1
       }
     )[0].id! + 1
+  }
+
+  public emailAlreadyExists(email:string): Observable<HttpResponse<any>> {
+    return this.httpClient.get<any>(
+      `${environment.apiRoot}intern/byemail?email=${email}`,
+      {
+        observe: 'response'
+      }
+    )
   }
 
 }
