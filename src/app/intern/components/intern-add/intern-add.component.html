@@ -20,7 +20,12 @@
     <div class="form-group">
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="Your email...">
+        <input matInput type="email" formControlName="email" placeholder="Intern email..." autocomplete="do-not-fill">
+        <mat-error *ngIf="internForm.controls['email'].errors && internForm.controls['email'].touched || internForm.controls['email'].dirty">
+          <span *ngIf="internForm.controls['email'].hasError('required')">EMail is required...</span>
+          <span *ngIf="internForm.controls['email'].hasError('pattern')">Not an email pattern...</span>
+          <span *ngIf="internForm.controls['email'].hasError('alreadyExists')">Cannot use this already taken email !</span>
+        </mat-error>
       </mat-form-field>
     </div>
 
