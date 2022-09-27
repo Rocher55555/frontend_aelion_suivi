@@ -52,7 +52,7 @@ export class InitialsDirective implements OnInit {
       this.renderer.setStyle(this.nativeElement, property, this.config[property]);
     }
 
-    const initials: string = this.intern!.name!.charAt(0) + this.intern!.firstname!.charAt(0);
+    const initials: string = this.intern!.name!.charAt(0).toUpperCase() + this.intern!.firstname!.charAt(0).toUpperCase();
 
     this.nativeElement.innerHTML = initials;
 

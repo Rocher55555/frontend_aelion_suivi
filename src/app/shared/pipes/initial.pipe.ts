@@ -8,7 +8,7 @@ import { Intern } from 'src/app/core/models/intern';
 export class InitialPipe implements PipeTransform {
 
   transform(value: Intern, ...args: unknown[]): string {
-    return (this.getInitials(value.firstname!) + this.getInitials(value.name!)).toUpperCase();
+    return (this.getInitials(value.firstname!).toUpperCase() + this.getInitials(value.name!)).toUpperCase();
   }
 
 
