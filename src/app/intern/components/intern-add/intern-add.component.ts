@@ -11,6 +11,7 @@ import { POEService } from 'src/app/core/services/poe.service';
 import { take } from 'rxjs/operators';
 import { POE } from 'src/app/core/models/poe';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { EmailExistsValidatorService } from 'src/app/core/validators/email-exists-validator.service';
 
 @Component({
   selector: 'app-intern-add',
@@ -32,7 +33,8 @@ export class InternAddComponent implements OnInit, OnDestroy {
     private internService: InternService,
     private router: Router,
     private snacBar: AddSnackService,
-    private poeService: POEService
+    private poeService: POEService,
+    private emailExistsValidator: EmailExistsValidatorService
   ) { }
 
   ngOnInit(): void {
@@ -69,8 +71,9 @@ export class InternAddComponent implements OnInit, OnDestroy {
               Validators.required,
               Validators.minLength(2),
               Validators.pattern(new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}'))
-            ]
-          )
+            ],
+          ),
+            this.emailExistsValidator.alreadyExists.bind(this.emailExistsValidator)
         ], phoneNumber: [
           '',
         ], birthDate: [
