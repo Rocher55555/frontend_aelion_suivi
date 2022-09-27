@@ -1,4 +1,4 @@
-
+<ng-container *ngIf="internForm, else Loading">
 <form [formGroup]="internForm" (ngSubmit)="onSubmit()">
   <fieldset title="Identity">
     <legend>Identity</legend>
@@ -21,10 +21,10 @@
       <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" placeholder="Intern email..." autocomplete="do-not-fill">
-        <mat-error *ngIf="internForm.controls['email'].errors && internForm.controls['email'].touched || internForm.controls['email'].dirty">
-          <span *ngIf="internForm.controls['email'].hasError('required')">EMail is required...</span>
-          <span *ngIf="internForm.controls['email'].hasError('pattern')">Not an email pattern...</span>
-          <span *ngIf="internForm.controls['email'].hasError('alreadyExists')">Cannot use this already taken email !</span>
+        <mat-error *ngIf="c['email'].errors && c['email'].touched || c['email'].dirty">
+          <span *ngIf="c['email'].hasError('required')">EMail is required...</span>
+          <span *ngIf="c['email'].hasError('pattern')">Not an email pattern...</span>
+          <span *ngIf="c['email'].hasError('alreadyExists')">Cannot use this already taken email !</span>
         </mat-error>
       </mat-form-field>
     </div>
@@ -42,9 +42,9 @@
         <input matInput type="date" formControlName="birthDate" placeholder="Intern birth date..." autocomplete="do-not-fill">
 
         <!-- afficher erreur -->
-            <mat-error *ngIf="internForm.controls['birthDate'].errors && internForm.controls['birthDate'].touched || internForm.controls['birthDate'].dirty">
-            <span *ngIf="internForm.controls['birthDate'].hasError('required')">Birthdate is required...</span>
-            <span *ngIf="internForm.controls['birthDate'].hasError('dateNotLessThan')">Birthdate cannot be superior than today...</span>
+            <mat-error *ngIf="c['birthDate'].errors && internForm.controls['birthDate'].touched || internForm.controls['birthDate'].dirty">
+            <span *ngIf="c['birthDate'].hasError('required')">Birthdate is required...</span>
+            <span *ngIf="c['birthDate'].hasError('dateNotLessThan')">Birthdate cannot be superior than today...</span>
         </mat-error>
       </mat-form-field>
     </div>
@@ -54,7 +54,7 @@
       <!-- diapo 21 -->
   <div class="form-group">
 
-    <fieldset title="Affectations">
+    <fieldset title="Affectations" *ngIf="c['poes']">
       <legend>Affectations</legend>
       <div class="form-group">
       <p>Affecter aux POE</p>
@@ -74,4 +74,12 @@
   <button mat-raised-button color="accent" [disabled]="internForm.invalid">Save</button>
 </form>
 
+
 {{ internForm.value | json }}
+</ng-container>
+
+
+
+<ng-template #Loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
