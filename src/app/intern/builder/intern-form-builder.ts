@@ -19,7 +19,11 @@ export class InternFormBuilder {
       return this.form!;
     }
 
-
+    public toggleAddPoes():void {
+      this.addPoes = true;
+      const poesControl: FormControl = new FormControl ('', Validators.required);
+      this.form?.addControl('poes', poesControl);
+    }
 
   private _buildForm() : void {
   /**
