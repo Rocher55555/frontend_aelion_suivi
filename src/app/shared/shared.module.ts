@@ -9,6 +9,7 @@ import { AgePipe } from './pipes/age.pipe';
 import { InitialsDirective } from './directives/initials.directive';
 import { InitialPipe } from './pipes/initial.pipe';
 import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -24,7 +25,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     UiModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
 
   exports: [
