@@ -10,9 +10,12 @@ import { Logger } from '../helpers/logger';
 })
 export class EmailExistsValidatorService {
 
+  private static myValidator: EmailExistsValidatorService;
+
   constructor(
     private internService: InternService
   ) { }
+
 
   // ! pourquoi control : AbstractControl ?
 
@@ -29,6 +32,7 @@ export class EmailExistsValidatorService {
         .subscribe(
           {
             // ! next / error ? => propriete de  httpResponse ?
+
             next: (response: HttpResponse<any>) => {
               Logger.info(`Got a ${response.status} so, all is okay`);
               emailExists(null);
@@ -40,6 +44,12 @@ export class EmailExistsValidatorService {
           }
         );
     })
+  }
+
+  //methode statique pour le validateur : alreadyExists
+
+  public static emailExists(control: AbstractControl): Promise<ValidationErrors | null> {
+    return EmailExistsValidatorService.myValidator.alreadyExists(control);
   }
 
 
