@@ -1,27 +1,34 @@
 
-<mat-toolbar>
-  <span> SuperApp </span>
-  <span class="example-spacer"></span>
 
+
+<mat-toolbar>
+
+
+  <button mat-icon-button [matMenuTriggerFor]="menuamoi" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menuamoi="matMenu">
+    <button mat-menu-item>
+      <span [routerLink]="['/interns']">Interns</span>
+    </button>
+    <button mat-menu-item>f
+      <span  [routerLink]="['/poes']">Poes</span>
+    </button>
+  </mat-menu>
+
+
+  <!-- <span> SuperApp </span> -->
+  <span class="example-spacer"></span>
   <!-- si l'user pas identifié -->
   <a id="signin" [routerLink]="['/signin']" *ngIf="!userService.isAuthenticated();  " >
     <mat-icon>person</mat-icon>
   </a>
-
   <a *ngIf="userService.isAuthenticated() === true" (click)="userService.signout()" >
     <mat-icon>no_accounts</mat-icon>
   </a>
-
-
-
   <span> Interns # {{ itemNumber$ | async }}</span>
 
 </mat-toolbar>
-
-
-
-
-
 
 
 
