@@ -13,7 +13,7 @@ export class DateValidator {
   public static dateNotLessThan(control: AbstractControl): ValidationErrors | null {
 // si rien sais par le user, je ne continu pas si que des espaces ... le trim va les enlever
 // pas de saison pas de modif en objet moment
-      if (control.value.trim() === '') {
+      if (control!.value && control!.value.toString().trim()=== '') {
           return null;
       }
 
