@@ -12,6 +12,7 @@ import { take } from 'rxjs/operators';
 import { POE } from 'src/app/core/models/poe';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { EmailExistsValidatorService } from 'src/app/core/validators/email-exists-validator.service';
+import { InternFormBuilder } from '../../builder/intern-form-builder';
 
 @Component({
   selector: 'app-intern-add',
@@ -36,78 +37,24 @@ export class InternAddComponent implements OnInit, OnDestroy {
     private poeService: POEService,
     private emailExistsValidator: EmailExistsValidatorService
   ) { }
-
-  ngOnInit(): void {
-
-    this.poeService.findAll()
-      .pipe(
-        take(1)
-      )
-      .subscribe((poes: POE[]) => {
-        Logger.info(`Got ${poes.length} poes`);
-        this.poes = poes;
-      })
-
-    this.internForm = this.formBuilder.group(
-      {
-        name: [
-          '', //Defaut value for the fied control
-          Validators.compose(
-            [
-              Validators.required,
-              Validators.minLength(2)
-            ]
-          )
-        ], firstname: [
-          '',
-          [
-            Validators.required,    // nécessaire car il existe un pipe et directive pour la boule INITIAL
-            Validators.minLength(2)
-          ]
-        ], email: [  // magie.tacher@bigben.co.uk
-          '',
-          Validators.compose(
-            [
-              Validators.required,
-              Validators.minLength(2),
-              Validators.pattern(new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}'))
-            ],
-          ),
-            this.emailExistsValidator.alreadyExists.bind(this.emailExistsValidator)
-        ], phoneNumber: [
-          '',
-        ], birthDate: [
-          '',
-          [
-            Validators.required,
-            DateValidator.dateNotLessThan
-          ]
-        ], poes: [
-          '',
-          Validators.required
-        ],
-      }
-    );
+// methode qui permet d'eviter les type et d'ecrire "internForm.controls" dans le html =>remplacer par 'c'
+  public get c(): {[key: string]: AbstractControl} {
+    return this.internForm!.controls;
   }
 
+  ngOnInit(): void {
+    const myInternForm: InternFormBuilder = new InternFormBuilder(this.formBuilder, this.poeService);
+    this.internForm = myInternForm.internForm; // grâce au methode "magique" on omit les pararentheses apres methode
 
+      //je voudrai bien les poes
+    myInternForm.toggleAddPoes()
+    .subscribe(
+      (poes: POE[])=> {
+        this.poes = poes;
+      }
+    )
+  }
 
-  // MY 1st methode
-  // public onSubmit(): void {
-  //   console.log(`Bout to send :  ${JSON.stringify(this.internForm.value)}`);
-
-  //   //next we will have to create a new Intern Instance
-  //   const intern: Intern = new Intern();
-  //   intern.name = this.internForm.value.name;
-
-  //   // we will have to pass brand new intern to add method of our service
-  //   this.internService.add(this.internForm.value).subscribe(() => {
-  //     //snackbar
-  //     this.snacBar.show(`l'intern a bien été enregistrée`)
-
-  //     //Finally go to the intern table component
-  //     this.router.navigate(['/', 'interns']);
-  //   })
 
 
 /**
@@ -139,18 +86,6 @@ export class InternAddComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
