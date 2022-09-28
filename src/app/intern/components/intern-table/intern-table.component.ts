@@ -4,6 +4,8 @@ import { Logger } from './../../../core/helpers/logger';
 import { Intern } from './../../../core/models/intern';
 import { take } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
+import { POEService } from 'src/app/core/services/poe.service';
+import { POE } from 'src/app/core/models/poe';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class InternTableComponent implements OnInit {
  public static sortOrder: number = 1;
-
+ public poes: POE[] = [];
  public interns: Intern[] = [];
 
  public bubbleConfig: any = {
@@ -30,9 +32,12 @@ export class InternTableComponent implements OnInit {
 }
 
 
+
+
  // injection du service
   constructor(
-    private internService: InternService //dependency Injection (D de solid)
+    private internService: InternService, //dependency Injection (D de solid)
+    private poeService: POEService
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +47,10 @@ export class InternTableComponent implements OnInit {
         Logger.info(`je viens d'être notifie`)
       })
       Logger.info(`Hello, je poursuis l'execution`)
+      this.poeService.findAll()
+        .subscribe((poes: POE[]) => {
+          this.poes = poes;
+        })
   }
 
   public onDelete (intern: Intern): void {
@@ -84,7 +93,6 @@ export class InternTableComponent implements OnInit {
 
 
 
-  //string helper
 
 
 

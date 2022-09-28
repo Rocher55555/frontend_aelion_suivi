@@ -1,3 +1,14 @@
+
+<h4>Intern's Poe(s)</h4>
+<mat-form-field appearance="fill">
+  <mat-label>Poes</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let poe of poes" [value]="poe.name">
+      {{poe.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 <h1> Intern list</h1>
 
 <table>
@@ -24,15 +35,34 @@
         <td>{{ intern.phoneNumber }}</td>
         <td>{{ intern.email }}</td>
         <td>{{ intern.address }}</td>
-
         <td>
           <span (click)="onDelete(intern)">
-
             <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
-
           </span>
         </td>
       </tr>
+
+    <!-- <ng-container *ngIf="poes!== null">
+      <tr *ngFor="let intern of poes.interns">
+        <td>{{ intern.id }}</td>
+        <td>
+          {{ intern | initial }}
+           <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
+        </td>
+        <td>{{ intern.firstname }}</td>
+        <td>{{ intern.phoneNumber }}</td>
+        <td>{{ intern.email }}</td>
+        <td>{{ intern.address }}</td>
+        <td>
+          <span (click)="onDelete(intern)">
+            <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
+          </span>
+        </td>
+      </tr>
+    </ng-container> -->
+
+
+
   </tbody>
 </table>
 
