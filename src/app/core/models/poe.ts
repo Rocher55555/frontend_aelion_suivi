@@ -20,6 +20,7 @@ export class POE implements Serializable<POE>  {
   @Type(() => Date)
   public endDate? : Date;
 
+
 // deseriazation
   public deserialize(plainPOE: any): POE {
     const asClass: POE = plainToInstance(POE, plainPOE, {excludeExtraneousValues: true});
