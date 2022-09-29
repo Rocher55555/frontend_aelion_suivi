@@ -7,7 +7,10 @@
 <mat-form-field appearance="fill">
   <mat-label>Poes</mat-label>
   <mat-select>
-    <mat-option *ngFor="let poe of poes" [value]="poe.name">
+    <mat-option  [value]="allInterns" (click)="FindAllInterns()">
+      All intern
+    </mat-option>
+    <mat-option *ngFor="let poe of poes" [value]="poe.name" (click)="FindAllInternsFromPoe(poe)">
       {{poe.name}}
     </mat-option>
   </mat-select>
