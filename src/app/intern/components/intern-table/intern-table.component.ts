@@ -97,12 +97,12 @@ export class InternTableComponent implements OnInit {
 
 
     //methode to find intern'poe(s) clicking on the linked poe
-    public FindAllInternsFromPoe(poe : POE) : void {
+    public findAllInternsFromPoe(poe : POE) : void {
       this.interns = poe.interns;
     }
 
     // displays all interns
-    public FindAllInterns() : void {
+    public findAllInterns() : void {
       this.interns = this.allInterns;
     }
 
