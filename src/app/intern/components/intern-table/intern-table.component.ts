@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild  } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { InternService } from './../../../core/services/intern.service';
 import { Logger } from './../../../core/helpers/logger';
 import { Intern } from './../../../core/models/intern';
@@ -6,20 +6,19 @@ import { take } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { POEService } from 'src/app/core/services/poe.service';
 import { POE } from 'src/app/core/models/poe';
-import { FormControl, Validators } from '@angular/forms';
-import { InternSearchBarComponent } from '../../search-bar/intern-search-bar/intern-search-bar.component';
-
 
 @Component({
   selector: 'app-intern-table',
   templateUrl: './intern-table.component.html',
   styleUrls: ['./intern-table.component.scss']
 })
+
 export class InternTableComponent implements OnInit {
 
  public static sortOrder: number = 1;
  public poes: POE[] = [];
  public interns: Intern[] = [];
+ public allInterns: Intern[] = [];
 
  public bubbleConfig: any = {
   height: '3em',
@@ -42,11 +41,14 @@ export class InternTableComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     // this.internService.findAll()
-    //   .subscribe((interns: Intern[]) => {
-      //     this.interns = interns;
-      //     Logger.info(`je viens d'être notifie`)
-      //   })
+    //   .subscribe((internsFromBack: Intern[]) => {
+    //     this.allInterns = internsFromBack;
+    //     this.interns = this.allInterns;
+    //     Logger.info(`je viens d'être notifie`)
+    //   })
+
     Logger.info(`Hello, je poursuis l'execution`)
     this.poeService.findAll()
     .subscribe((poes: POE[]) => {
@@ -94,4 +96,16 @@ export class InternTableComponent implements OnInit {
     }
   }
 
+    //methode to find intern'poe(s) clicking on the linked poe
+    public findAllInternsFromPoe(poe : POE) : void {
+      this.interns = poe.interns;
+    }
+
+    // displays all interns
+    public findAllInterns() : void {
+      this.interns = this.allInterns;
+      console.log(this.allInterns, 'all');
+      console.log(this.interns);
+
+    }
 }

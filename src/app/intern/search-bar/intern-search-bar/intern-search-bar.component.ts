@@ -1,6 +1,8 @@
 import { Component, Output, OnInit, EventEmitter  } from '@angular/core';
-import { Intern } from 'src/app/core/models/intern';
-import { InternService } from 'src/app/core/services/intern.service';
+// import { Intern } from 'src/app/core/models/intern';
+// import { InternService } from 'src/app/core/services/intern.service';
+import { Intern } from './../../../core/models/intern';
+import { InternService } from './../../../core/services/intern.service';
 
 
 

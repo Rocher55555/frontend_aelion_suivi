@@ -1,19 +1,22 @@
-
-
 <h1> Intern list</h1>
 
-
+<!-- poesFilter -->
 <h2>Choose Poe(s)</h2>
+
 <mat-form-field appearance="fill" id="poes-list">
   <mat-label>Poes</mat-label>
   <mat-select>
-    <mat-option *ngFor="let poe of poes" [value]="poe.name">
+    <mat-option  [value]="allInterns" (click)="findAllInterns()">
+      All intern
+    </mat-option>
+    <mat-option *ngFor="let poe of poes" [value]="poe.name" (click)="findAllInternsFromPoe(poe)">
       {{poe.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 <app-intern-search-bar (interns)="getInterns($event)" ></app-intern-search-bar>
 
+<!-- table -->
 <table>
   <thead>
     <tr>
@@ -23,54 +26,56 @@
       <th>Phone</th>
       <th>Email</th>
       <th>address</th>
+      <th>Actions</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
-      <tr *ngFor="let intern of interns">
-        <td>{{ intern.id }}</td>
-        <td>
-          {{ intern | initial }}
-           <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
-        </td>
-        <td>{{ intern.firstname }}</td>
-        <td>{{ intern.phoneNumber }}</td>
-        <td>{{ intern.email }}</td>
-        <td>{{ intern.address }}</td>
-        <td>
-          <span (click)="onDelete(intern)">
-            <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
-          </span>
-        </td>
-      </tr>
+    <tr *ngFor="let intern of interns">
+      <td>{{ intern.id }}</td>
+      <td>
+        {{ intern | initial }}
+        <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
+      </td>
+      <td>{{ intern.firstname }}</td>
+      <td>{{ intern.phoneNumber }}</td>
+      <td>{{ intern.email }}</td>
+      <td>{{ intern.address }}</td>
+      <td>
+        <span (click)="onDelete(intern)">
+          <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
+        </span>
+      </td>
+      <!-- Start Add menu with icons-->
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Exemple icon-button avec un menu">
+          <mat-icon> more_vert </mat-icon>
+        </button>
 
-    <!-- <ng-container *ngIf="poes!== null">
-      <tr *ngFor="let intern of poes.interns">
-        <td>{{ intern.id }}</td>
-        <td>
-          {{ intern | initial }}
-           <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
-        </td>
-        <td>{{ intern.firstname }}</td>
-        <td>{{ intern.phoneNumber }}</td>
-        <td>{{ intern.email }}</td>
-        <td>{{ intern.address }}</td>
-        <td>
-          <span (click)="onDelete(intern)">
-            <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
-          </span>
-        </td>
-      </tr>
-    </ng-container> -->
+        <mat-menu #menu="matMenu">
+          <bouton mat-menu-item>
+            <mat-icon>update</mat-icon>
+            <span>Update</span>
+          </bouton>
 
+          <bouton mat-menu-item désactivé>
+            <mat-icon>school</mat-icon>
+            <span>Evaluate</span>
+           </bouton>
 
+            <bouton mat-menu-item class="deletebt">
+              <mat-icon id="deletebt">delete</mat-icon>
+              <span>Delete</span>
+            </bouton>
+
+        </mat-menu>
+      </td>
+      <!-- End Add menu with icons-->
+    </tr>
 
   </tbody>
 </table>
 
 <!-- BUTTON -->
-
 <button mat-raised-button color="primary" [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</button>
-
 <!-- <a [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</a> -->

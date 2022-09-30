@@ -17,7 +17,13 @@ export class InitialPipe implements PipeTransform {
    * @param value Name or Firstname ( -_PINA  BARACALDO)
    */
  private getInitials(value: string): string {
+  if(value === null){
+    return '';
+  }
   value = value.trim();
+  if(value === ''){
+    return '';
+  }
 
   const regex: RegExp = /[-_ ]/g;
   let firstInitial: string = value.charAt(0); // ' '
