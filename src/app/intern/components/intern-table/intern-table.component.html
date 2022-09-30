@@ -1,9 +1,8 @@
-
-
 <h1> Intern list</h1>
 
-
+<!-- poesFilter -->
 <h2>Choose Poe(s)</h2>
+
 <mat-form-field appearance="fill">
   <mat-label>Poes</mat-label>
   <mat-select>
@@ -16,6 +15,7 @@
   </mat-select>
 </mat-form-field>
 
+<!-- table -->
 <table>
   <thead>
     <tr>
@@ -28,7 +28,6 @@
       <th>&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
       <tr *ngFor="let intern of interns">
         <td>{{ intern.id }}</td>
@@ -46,33 +45,9 @@
           </span>
         </td>
       </tr>
-
-    <!-- <ng-container *ngIf="poes!== null">
-      <tr *ngFor="let intern of poes.interns">
-        <td>{{ intern.id }}</td>
-        <td>
-          {{ intern | initial }}
-           <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
-        </td>
-        <td>{{ intern.firstname }}</td>
-        <td>{{ intern.phoneNumber }}</td>
-        <td>{{ intern.email }}</td>
-        <td>{{ intern.address }}</td>
-        <td>
-          <span (click)="onDelete(intern)">
-            <div appInitials [intern]="intern" [config]="bubbleConfig"></div>
-          </span>
-        </td>
-      </tr>
-    </ng-container> -->
-
-
-
   </tbody>
 </table>
 
 <!-- BUTTON -->
-
 <button mat-raised-button color="primary" [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</button>
-
 <!-- <a [routerLink]="['/', 'intern', 'manage', 'add']">Add an Intern</a> -->
