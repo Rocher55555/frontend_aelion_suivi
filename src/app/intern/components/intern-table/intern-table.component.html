@@ -4,7 +4,7 @@
 
 
 <h2>Choose Poe(s)</h2>
-<mat-form-field appearance="fill">
+<mat-form-field appearance="fill" id="poes-list">
   <mat-label>Poes</mat-label>
   <mat-select>
     <mat-option *ngFor="let poe of poes" [value]="poe.name">
@@ -12,6 +12,7 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<app-intern-search-bar (interns)="getInterns($event)" ></app-intern-search-bar>
 
 <table>
   <thead>

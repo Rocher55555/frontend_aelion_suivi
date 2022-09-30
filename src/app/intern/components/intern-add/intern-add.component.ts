@@ -54,9 +54,6 @@ export class InternAddComponent implements OnInit, OnDestroy {
       }
     )
   }
-
-
-
 /**
  *
  */
@@ -88,12 +85,6 @@ export class InternAddComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-
-
-
-
 
 
   //    public static validateBirthDate(control: AbstractControl): {[key: string]: any} | null {
