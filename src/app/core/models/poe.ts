@@ -1,6 +1,7 @@
 import { Expose, plainToInstance, Type } from "class-transformer";
 import 'reflect-metadata';
 import { Serializable } from "../interfaces/serializable";
+import { Intern } from "./intern";
 
 // @Expose() => indique que cet attribut est concerné par la “deserialization”
 // @Type() => définit une fonction de “mapping” permettant de convertir la donnée “entrante” vers le type souhaité (ici Date)
@@ -19,6 +20,10 @@ export class POE implements Serializable<POE>  {
   @Expose()
   @Type(() => Date)
   public endDate? : Date;
+  @Expose()
+  //j'indique le contenu du tab interns
+  @Type(() => Intern)
+  public interns: Intern[] = []
 
 
 // deseriazation

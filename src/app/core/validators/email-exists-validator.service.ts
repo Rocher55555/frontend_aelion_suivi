@@ -14,7 +14,7 @@ export class EmailExistsValidatorService {
 
   constructor(
     private internService: InternService
-  ) { }
+  ) { EmailExistsValidatorService.myValidator=this;}
 
 
   // ! pourquoi control : AbstractControl ?
