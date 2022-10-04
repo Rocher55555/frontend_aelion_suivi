@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Logger } from 'src/app/core/helpers/logger';
+import { environment } from 'src/environments/environment';
 import { UserModel } from '../models/user-model';
 
 @Injectable({
@@ -27,8 +29,8 @@ export class UserService {
   private readonly STORAGE_KEY: string = 'auth_token';
 
   constructor(
-    private router: Router
-
+    private router: Router,
+    private httpClient: HttpClient
   ) { }
 
   /**
@@ -107,7 +109,9 @@ export class UserService {
   }
 
   public checkEmail(email : string): void {
-    Logger.info(`Check for ${email}in backend, verif cablage `)
+    //Logger.info(`Check for ${email}in backend, verif cablage `)
+    this.httpClient.get<any>(
+      `${environment.apiRoot}user/${email}`
+    ).subscribe();
   }
-
 }
