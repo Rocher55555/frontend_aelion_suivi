@@ -14,7 +14,7 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-<app-intern-search-bar (interns)="getInterns($event)" (poes)="getPoes($event)"></app-intern-search-bar>
+<app-intern-search-bar (interns)="getInterns($event)" (poes)="getPoes($event)" (findAllInterns)="getAllInterns($event)" [selectedPOE]="selectedPOE"></app-intern-search-bar>
 
 <!-- table -->
 <table>

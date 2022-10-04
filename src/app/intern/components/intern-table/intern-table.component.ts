@@ -19,6 +19,7 @@ export class InternTableComponent implements OnInit {
  public poes: POE[] = [];
  public interns: Intern[] = [];
  public allInterns: Intern[] = [];
+ public selectedPOE!: POE |null;
 
  public bubbleConfig: any = {
   height: '3em',
@@ -36,33 +37,23 @@ export class InternTableComponent implements OnInit {
  // injection du service
   constructor(
     private internService: InternService, //dependency Injection (D de solid)
-    private poeService: POEService
   ) { }
 
 
   ngOnInit(): void {
 
-    // this.internService.findAll()
-    //   .subscribe((internsFromBack: Intern[]) => {
-    //     this.allInterns = internsFromBack;
-    //     this.interns = this.allInterns;
-    //     Logger.info(`je viens d'être notifie`)
-    //   })
-
-    // Logger.info(`Hello, je poursuis l'execution`)
-    // this.poeService.findAll()
-    // .subscribe((poes: POE[]) => {
-    //   this.poes = poes;
-    // })
-    // this.interns;
   }
-  // Récupère la liste des interns venant du composant InternSearchBar
+  // Récupère la liste des interns venant du composant InternSearchBar en fonction des poes
   public getInterns($event : Intern[]): void {
-    // this.interns = $event;
-    this.allInterns = $event;
-    this.interns = this.allInterns
+    this.interns = $event;
   }
 
+  // Récupère la liste des interns venant du composant InternSearchBar
+  public getAllInterns($event: Intern[]): void {
+    this.allInterns = $event;
+  }
+
+  // Récupère les liste des poes venant du composant InternSearchBar
   public getPoes($event: POE[]): void {
     this.poes = $event;
   }
@@ -104,11 +95,13 @@ export class InternTableComponent implements OnInit {
 
     //methode to find intern'poe(s) clicking on the linked poe
     public findAllInternsFromPoe(poe : POE) : void {
-      this.interns = poe.interns;
+      this.selectedPOE = poe;
+      this.interns = this.selectedPOE.interns;
     }
 
     // displays all interns
     public findAllInterns() : void {
+      this.selectedPOE = null;
       this.interns = this.allInterns;
     }
 }
