@@ -49,16 +49,22 @@ export class InternTableComponent implements OnInit {
     //     Logger.info(`je viens d'être notifie`)
     //   })
 
-    Logger.info(`Hello, je poursuis l'execution`)
-    this.poeService.findAll()
-    .subscribe((poes: POE[]) => {
-      this.poes = poes;
-    })
+    // Logger.info(`Hello, je poursuis l'execution`)
+    // this.poeService.findAll()
+    // .subscribe((poes: POE[]) => {
+    //   this.poes = poes;
+    // })
     // this.interns;
   }
   // Récupère la liste des interns venant du composant InternSearchBar
   public getInterns($event : Intern[]): void {
-    this.interns = $event;
+    // this.interns = $event;
+    this.allInterns = $event;
+    this.interns = this.allInterns
+  }
+
+  public getPoes($event: POE[]): void {
+    this.poes = $event;
   }
 
   public onDelete (intern: Intern): void {
@@ -104,8 +110,5 @@ export class InternTableComponent implements OnInit {
     // displays all interns
     public findAllInterns() : void {
       this.interns = this.allInterns;
-      console.log(this.allInterns, 'all');
-      console.log(this.interns);
-
     }
 }
