@@ -11,4 +11,4 @@
   <button mat-raised-button color="accent" [disabled]="signinForm.invalid">Signin</button>
 </form>
 
-<a href="#" title="Password Forgotten">Forgotten password ?</a>
+<a [routerLink]="['/', 'forgotten-password']" title="Password Forgotten">Forgotten password ?</a>

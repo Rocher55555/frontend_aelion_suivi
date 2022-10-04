@@ -6,6 +6,7 @@ import { InternTableComponent } from './intern/components/intern-table/intern-ta
 import { POEAddComponent } from './poe/components/poe-add/poe-add.component';
 import { POEDetailComponent } from './poe/components/poe-detail/poe-detail.component';
 import { POETableComponent } from './poe/components/poe-table/poe-table.component';
+import { ForgottenPasswordComponent } from './user/components/forgotten-password/forgotten-password.component';
 import { UserSigninComponent } from './user/components/user-signin/user-signin.component';
 import { HasUserGuard } from './user/guards/has-user.guard';
 import { NoUserGuard } from './user/guards/no-user.guard';
@@ -70,8 +71,10 @@ export class AppRoutingModule {
       canActivate:[
         HasUserGuard
       ]
+    },{
+      path:'forgotten-password',
+      component: ForgottenPasswordComponent,
     },
-
     { //Fallback Route if pattern was not found
       path: '**',
       redirectTo: 'interns',
