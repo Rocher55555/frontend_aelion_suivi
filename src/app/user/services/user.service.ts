@@ -39,7 +39,6 @@ export class UserService {
   public signin(credentials: any): void {
     Logger.info(JSON.stringify(credentials));
     // Yassine : approche 1 boucle et comparaison
-
     for (const inUser of this.users) {
       if(inUser.login === credentials.login && inUser.pass === credentials.pass) {
         //user was found
@@ -105,7 +104,10 @@ export class UserService {
           this.user.setLogin(persistentUser.login)
           this.user.setToken(persistentUser.token)
         }
+  }
 
+  public checkEmail(email : string): void {
+    Logger.info(`Check for ${email}in backend, verif cablage `)
   }
 
 }
