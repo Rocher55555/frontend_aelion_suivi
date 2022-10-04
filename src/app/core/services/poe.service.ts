@@ -23,25 +23,16 @@ export class POEService implements ICrud<POE> {
   ) { }
 
 
+
+  add(item: POE): Observable<POE> {
+    throw new Error('Method not implemented.');
+  }
+
+
   //ajout des méthodes de l'interface Icrud
 
-  // Ajouter une nouvelle poe avec un nouvel id
-  add(item: POE): Observable<POE> {
-    return this.httpClient.post<POE>(
-      `${environment.apiRoot}poe`,
-      item
-    ).pipe(
-      take(1),
-      map((rawPOE: any) => {
-        const poe: POE = new POE();
-        poe.id = rawPOE.id;
-        poe.name = rawPOE.name;
-        poe.beginDate = new Date(rawPOE.beginDate);
-        poe.endDate = new Date(rawPOE.endDate);
-        return poe;   //vrai objet
-      })
-    );
-  }
+
+
 
 
   /**
@@ -127,13 +118,6 @@ export class POEService implements ICrud<POE> {
         throwIfEmpty(() => new Error (`Poe with ${id} was not found! `))
       )
     }
-
-
-
-
-
-
-
 
 }
 
