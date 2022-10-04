@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Logger } from 'src/app/core/helpers/logger';
 
 @Component({
   selector: 'app-forgotten-password',
@@ -26,4 +27,8 @@ export class ForgottenPasswordComponent implements OnInit {
     });   // passwordForgottenForm deveint un nouvel objet de type formgroupe
   }
 
+    public onSubmit(): void{
+      const email: string = this.passwordForgottenForm.controls['email'].value;
+      Logger.info(`User entereer ${email}`);
+    }
 }
