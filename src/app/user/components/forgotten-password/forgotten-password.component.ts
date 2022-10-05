@@ -37,7 +37,7 @@ export class ForgottenPasswordComponent implements OnInit {
 
     public onSubmit(): void{
       const email: string = this.passwordForgottenForm.controls['email'].value;
-      Logger.info(`User entereer ${email}`);
+      Logger.info(`User entered ${email}`);
       this.userService.checkEmail(email)
       .subscribe({
         next: (response : HttpResponse<any>) => {
