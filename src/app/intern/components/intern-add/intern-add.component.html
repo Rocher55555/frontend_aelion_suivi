@@ -29,6 +29,19 @@
       </mat-form-field>
     </div>
 
+    <mat-autocomplete #auto="matAutocomplete" panelWidth="50%">
+      <mat-option *ngFor="let address of addressList" [value]="address">
+        {{address}}
+      </mat-option>
+    </mat-autocomplete>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Adresse</mat-label>
+        <input matInput type="text" formControlName="adresse" placeholder="address..."
+         (input)="onAddressChange($event)" [matAutocomplete]="auto" >
+      </mat-form-field>
+    </div>
+
     <div class="form-group">
       <mat-form-field>
         <mat-label>Phone Number</mat-label>
@@ -40,7 +53,6 @@
       <mat-form-field>
         <mat-label>Birthdate</mat-label>
         <input matInput type="date" formControlName="birthDate" placeholder="Intern birth date..." autocomplete="do-not-fill">
-
         <!-- afficher erreur -->
             <mat-error *ngIf="c['birthDate'].errors && internForm.controls['birthDate'].touched || internForm.controls['birthDate'].dirty">
             <span *ngIf="c['birthDate'].hasError('required')">Birthdate is required...</span>

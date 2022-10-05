@@ -8,11 +8,13 @@ import * as moment from 'moment';
 import { Logger } from 'src/app/core/helpers/logger';
 import { DateValidator } from 'src/app/core/validators/date-validator';
 import { POEService } from 'src/app/core/services/poe.service';
-import { take } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 import { POE } from 'src/app/core/models/poe';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { EmailExistsValidatorService } from 'src/app/core/validators/email-exists-validator.service';
 import { InternFormBuilder } from '../../builder/intern-form-builder';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-intern-add',
@@ -27,7 +29,9 @@ export class InternAddComponent implements OnInit, OnDestroy {
   public internForm!: FormGroup;
   public poes: POE[] = [];
   private subscription!: Subscription;
-
+  private search$:Subject<string> = new Subject()
+  private addressApiUrl: string = "https://api-adresse.data.gouv.fr/search/"
+  public addressList: string[] =[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +39,8 @@ export class InternAddComponent implements OnInit, OnDestroy {
     private router: Router,
     private snacBar: AddSnackService,
     private poeService: POEService,
-    private emailExistsValidator: EmailExistsValidatorService
+    private emailExistsValidator: EmailExistsValidatorService,
+    private httpClient: HttpClient
   ) { }
 // methode qui permet d'eviter les type et d'ecrire "internForm.controls" dans le html =>remplacer par 'c'
   public get c(): {[key: string]: AbstractControl} {
@@ -44,9 +49,20 @@ export class InternAddComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const myInternForm: InternFormBuilder = new InternFormBuilder(this.formBuilder, this.poeService);
-    this.internForm = myInternForm.internForm; // grâce au methode "magique" on omit les pararentheses apres methode
+    this.internForm = myInternForm.internForm; // grâce au methode "magique" on omet les pararentheses apres methode
+    this.search$.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe({
+      next: (address :string) =>{
+        this.callAddressApi(address)
+      },
+      error:(msg:string) =>{
+        console.log('Error Getting Location: ', msg);
+      }
+    })
 
-      //je voudrai bien les poes
+    //je voudrai bien les poes
     myInternForm.toggleAddPoes()
     .subscribe(
       (poes: POE[])=> {
@@ -84,10 +100,54 @@ export class InternAddComponent implements OnInit, OnDestroy {
 // ? unsubscribe() : desinscription
 
   public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription.unsubscribe()
   }
 
+  public onAddressChange(event:Event):void{
+    // conversion de type, de Event à HTMLInputValue pour pouvoir appeler target.value
+    const addressInputValue=(event.target as HTMLInputElement).value 
+
+    const search: string = addressInputValue.trim()
+    if (search.length >= 3) {
+      this.search$.next(addressInputValue)
+    }else{
+      this.addressList=[]
+    }
+
+  }
+
+  // call https://adresse.data.gouv.fr/api-doc/adresse and return possibles results
+  public callAddressApi(address: string) {
+  this.httpClient.get(
+    this.addressApiUrl,
+    {
+      params : new HttpParams().set('q',address),
+      observe:"response"
+    }
+  ).subscribe(
+    (response:HttpResponse<any>)=>{
+      if (response.ok){
+        this.extractAddressList(response.body)
+      }else{
+        console.log('callAddressApi failed ')
+      }
+    }
+  )
+  }
+
+  public extractAddressList(apiResponse: any): string[] {
+    this.addressList =[]
+    for ( const feature of apiResponse.features){
+      this.addressList.push(feature.properties.label)
+    }
+    return this.addressList
+  }
+
+
 }
+
+
+
 
 
 
