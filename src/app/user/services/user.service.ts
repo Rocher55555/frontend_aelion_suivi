@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Logger } from 'src/app/core/helpers/logger';
 import { environment } from 'src/environments/environment';
 import { UserModel } from '../models/user-model';
@@ -108,10 +109,12 @@ export class UserService {
         }
   }
 
-  public checkEmail(email : string): void {
+  public checkEmail(email : string): Observable<HttpResponse<any>> {
     //Logger.info(`Check for ${email}in backend, verif cablage `)
-    this.httpClient.get<any>(
-      `${environment.apiRoot}user/${email}`
-    ).subscribe();
+    return this.httpClient.get<any>(
+      `${environment.apiRoot}user/${email}`,
+      {observe: 'response'}
+
+    )
   }
 }
