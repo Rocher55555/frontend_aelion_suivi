@@ -27,10 +27,6 @@ export class InternFormBuilder {
     }
 
 
-
-
-
-
     //je vais en avoir besoin ailleurs donc GETTER
     public get internForm(): FormGroup {
       return this.form!;

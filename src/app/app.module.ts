@@ -21,7 +21,7 @@ import { appInit } from './core/services/app-init.service';
     SharedModule,
     InternModule,
     POEModule,
-    UserModule
+    UserModule,
   ],
   providers: [
     appInit

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ICrud } from '../interfaces/i-crud';
 import { POE } from '../models/poe';
-import { map, take } from 'rxjs/operators';
+import { map, take, throwIfEmpty } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
 import { Logger } from '../helpers/logger';
@@ -15,8 +15,6 @@ import { Logger } from '../helpers/logger';
 })
 
 export class POEService implements ICrud<POE> {
-
-
 
   public constructor(
     private httpClient: HttpClient     //transporteur des requete http vers le Front
@@ -43,7 +41,6 @@ export class POEService implements ICrud<POE> {
     );
   }
 
-
   /**
    * Update a POE throught its id
    * @param poe
@@ -54,7 +51,6 @@ export class POEService implements ICrud<POE> {
     //   oldPoe = {id: oldPoe.id, ...poe}
     // }
   }
-
 
   delete(poe: POE): Observable<any> {
     return of(new HttpResponse());
@@ -99,7 +95,6 @@ export class POEService implements ICrud<POE> {
       )
   }
 
-
   /**
    * Find a POE with this id
    *
@@ -107,20 +102,26 @@ export class POEService implements ICrud<POE> {
    * @returns POE | null (if not find)
    */
 
-  findOne(id: number): Observable<any> {
-    return of(null);                        // poe| null : ce que ça va me return
-
-    //  const poe: POE | undefined = this.poes.find (           // arg en paramètre est une fct
-    //    (obj: POE) => obj.id === id                           // condition s'il rencontre cette condition le find (s'arrete de ange dans la const poe)
-    //  )                                                       // si pas trouvé : poe sera undefined
-    //  return (poe === undefined) ? null : poe;                // ? if : sinon
-  }
-
-
-
-
-
-
+   findOne(id: number): Observable<POE> {
+    return this.httpClient.get<any>(
+      `${environment.apiRoot}poe/${id}`,  //http://127.0.0.1/poe/idDeLaPoe
+      {
+       observe: 'response'    // si on observe pas la rep, on aura pas le status
+      }
+    )
+      .pipe(
+        take(1),
+        map((response: HttpResponse<any>) => {
+          if (response.status ===200) {
+            const rawPoe: any = response.body;
+            return new POE().deserialize(rawPoe);
+          } else {
+            throw new Error(`Poe with ${id} was not found!`)
+          }
+        }),
+        throwIfEmpty(() => new Error (`Poe with ${id} was not found! `))
+      )
+    }
 
 }
 

@@ -23,6 +23,7 @@
     "class-transformer": "^0.5.1",
     "core-js": "^3.25.2",
     "moment": "^2.29.4",
+    "ng2-search-filter": "^0.5.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

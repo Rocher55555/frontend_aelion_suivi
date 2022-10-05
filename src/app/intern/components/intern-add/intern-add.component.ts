@@ -70,9 +70,6 @@ export class InternAddComponent implements OnInit, OnDestroy {
       }
     )
   }
-
-
-
 /**
  *
  */
@@ -145,12 +142,6 @@ export class InternAddComponent implements OnInit, OnDestroy {
 
 
 }
-
-
-
-
-
-
 
 
 

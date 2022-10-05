@@ -1,4 +1,9 @@
 
+#poes-list {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 table {
   // display: flex;
   margin: 0 auto;
@@ -27,5 +32,15 @@ table {
   .mat-raised-button.mat-primary {
     background-color:rgb(226, 180, 42);
   }
+
+// Icon delete
+#deletebt{
+  color: red;
+}
+
+//Text delete
+.deletebt{
+  color: red;
+}
 
 
