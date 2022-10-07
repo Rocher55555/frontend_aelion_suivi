@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { Logger } from 'src/app/core/helpers/logger';
+import { environment } from 'src/environments/environment';
 import { UserModel } from '../models/user-model';
 
 @Injectable({
@@ -27,18 +30,39 @@ export class UserService {
   private readonly STORAGE_KEY: string = 'auth_token';
 
   constructor(
-    private router: Router
+    private router: Router,
+    private httpClient: HttpClient
 
   ) { }
 
   /**
    *
    * @param credentials From signinForm (login and password user entered)
-   * credetials : {login : 'toto', pass: 'titi'}
+   * credetials : {login : 'toto', pass: 'titi'} <= this.signiForm.value
+   * Je dois passer {userName: ?, userPass:?}
    */
-  public signin(credentials: any): void {
+  public signin(credentials: any): Observable<any> {
+    const payload: any = {
+      userName: credentials.login,
+      userPass: credentials.pass
+    };
+    return this.httpClient.post<any>(
+      `${environment.apiRoot}user/signin`,
+      payload
+    )
+    .pipe(
+      tap((response) => {
+        this.user = new UserModel();
+        this.user.setLogin(credentials.login);
+        this.user.setToken(response.token);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.user))
+      })
+    )
+  }
+
+
+  /*public signin(credentials: any): void {
     Logger.info(JSON.stringify(credentials));
-    // Yassine : approche 1 boucle et comparaison
 
     for (const inUser of this.users) {
       if(inUser.login === credentials.login && inUser.pass === credentials.pass) {
@@ -54,19 +78,9 @@ export class UserService {
       }
     }
     //soit this.user est une instance de UserModel soit il est null
-  }
+  }*/
 
-    // Jean_Luc : find
-    /*
-    const foundUser: any = this.users.find(
-      (inUser: any) => inUser.login === credentials.login && inUser.pass ===credentials.pass
-      );
-    if (foundUser) {
-      this.user = new UserModel()
-      this.user.setLogin(credentials.login);
-      this.user.setToken(credentials.login + 'xxxxx.yyyyyy');
-    }
-    */
+
 
   public signout(): void {
     this.user = null;
@@ -88,6 +102,10 @@ export class UserService {
       return false
     }
     return true;
+  }
+
+  public getUser(): UserModel | null {
+    return this.user
   }
 
   public getToken(): void {
