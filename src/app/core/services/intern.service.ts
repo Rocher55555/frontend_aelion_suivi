@@ -37,7 +37,8 @@ export class InternService implements ICrud<Intern>{
   findAll(): Observable<Intern[]> {
     //let itemNumber: number = 0;        // on defini une variable
     return this.httpClient.get<any>(
-      `${environment.apiRoot}intern` // http://217.0.0.1:5000/inter
+      `${environment.apiRoot}intern`, // http://217.0.0.1:5000/inter
+
     ) //je recupere mon observable<ça>
       .pipe(
         take(1), // recup tt le tableau

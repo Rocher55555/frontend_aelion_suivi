@@ -39,16 +39,22 @@ export class UserSigninComponent implements OnInit {
 
 /* appel la methode signin() de userservicepass lui les info saisies par l'user*/
   public onSubmit(): void {
-    this.userService.signin(this.signinForm.value);   //déclanche le procce d'identification:  le trigger the signin process
-    if (this.userService.isAuthenticated()) {
-      this.router.navigate (['/', 'interns']);
-    Logger.info('Got a user!')
-    } else {
-      this.signinForm.reset();
-      //snackbar en cas de mauviase identification
+    this.userService.signin(this.signinForm.value)   //déclanche le procce d'identification:  le trigger the signin process
+    .subscribe({
+      next: (response: any) => {
+        //Your stuff here is 200
+        this.router.navigate (['/', 'interns']);
+        Logger.info(`User was found`)
+      },
+      error: (error: any) => {
+        //Your stuff here is not 200
+        this.signinForm.reset();
+        //snackbar en cas de mauviase identification
       this.snacBar.show('Mauvaise identification')
-      // alert("Mauvaise identification")
-    }
+        //Your stuff here is not 200
+        Logger.info(`User NOT found ! `)
+      }
+    })
   }
 
 }
