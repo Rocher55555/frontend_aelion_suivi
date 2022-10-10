@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { InternService } from './../../../core/services/intern.service';
 import { Logger } from './../../../core/helpers/logger';
 import { Intern } from './../../../core/models/intern';
@@ -6,9 +6,6 @@ import { take } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { POEService } from 'src/app/core/services/poe.service';
 import { POE } from 'src/app/core/models/poe';
-import { Observable } from 'rxjs';
-
-
 
 @Component({
   selector: 'app-intern-table',
@@ -17,10 +14,12 @@ import { Observable } from 'rxjs';
 })
 
 export class InternTableComponent implements OnInit {
+
  public static sortOrder: number = 1;
  public poes: POE[] = [];
  public interns: Intern[] = [];
  public allInterns: Intern[] = [];
+ public selectedPOE!: POE |null;
 
  public bubbleConfig: any = {
   height: '3em',
@@ -38,25 +37,26 @@ export class InternTableComponent implements OnInit {
  // injection du service
   constructor(
     private internService: InternService, //dependency Injection (D de solid)
-    private poeService: POEService
   ) { }
 
 
   ngOnInit(): void {
-    this.internService.findAll()
-      .subscribe((internsFromBack: Intern[]) => {
-        this.allInterns = internsFromBack;
-        this.interns = this.allInterns;
-        Logger.info(`je viens d'être notifie`)
-      })
-      Logger.info(`Hello, je poursuis l'execution`)
-      this.poeService.findAll()
-        .subscribe((poes: POE[]) => {
-          this.poes = poes;
-          console.log(this.poes)
-        })
+
+  }
+  // Récupère la liste des interns venant du composant InternSearchBar en fonction des poes
+  public getInterns($event : Intern[]): void {
+    this.interns = $event;
   }
 
+  // Récupère la liste des interns venant du composant InternSearchBar
+  public getAllInterns($event: Intern[]): void {
+    this.allInterns = $event;
+  }
+
+  // Récupère les liste des poes venant du composant InternSearchBar
+  public getPoes($event: POE[]): void {
+    this.poes = $event;
+  }
 
   public onDelete (intern: Intern): void {
     this.internService.delete(intern)    // on veut just recup l'observable qui observe une rep http
@@ -72,7 +72,6 @@ export class InternTableComponent implements OnInit {
       })
   }
 
-
  //trier par ordre croissant
   public sortByName(): void {
     Logger.info(`Before sort, sortOder is ${InternTableComponent.sortOrder}`)
@@ -82,7 +81,6 @@ export class InternTableComponent implements OnInit {
     InternTableComponent.sortOrder = InternTableComponent.sortOrder * -1;
     console.log(`After sort, sortOder is ${InternTableComponent.sortOrder}`)
   }
-
 
   //Static
   private static sortName(intern1: Intern, intern2: Intern): number {
@@ -95,15 +93,15 @@ export class InternTableComponent implements OnInit {
     }
   }
 
-
     //methode to find intern'poe(s) clicking on the linked poe
     public findAllInternsFromPoe(poe : POE) : void {
-      this.interns = poe.interns;
+      this.selectedPOE = poe;
+      this.interns = this.selectedPOE.interns;
     }
 
     // displays all interns
     public findAllInterns() : void {
+      this.selectedPOE = null;
       this.interns = this.allInterns;
     }
-
 }

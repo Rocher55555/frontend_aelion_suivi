@@ -23,7 +23,7 @@ import { JwtInterceptorService } from './core/services/jwt-interceptor.service';
     SharedModule,
     InternModule,
     POEModule,
-    UserModule
+    UserModule,
   ],
   providers: [
     appInit,

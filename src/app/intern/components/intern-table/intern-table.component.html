@@ -3,7 +3,7 @@
 <!-- poesFilter -->
 <h2>Choose Poe(s)</h2>
 
-<mat-form-field appearance="fill">
+<mat-form-field appearance="fill" id="poes-list">
   <mat-label>Poes</mat-label>
   <mat-select>
     <mat-option  [value]="allInterns" (click)="findAllInterns()">
@@ -14,6 +14,7 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<app-intern-search-bar (interns)="getInterns($event)" (poes)="getPoes($event)" (findAllInterns)="getAllInterns($event)" [selectedPOE]="selectedPOE"></app-intern-search-bar>
 
 <!-- table -->
 <table>

@@ -10,6 +10,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
 import {MatListModule} from '@angular/material/list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 
 
@@ -35,7 +36,8 @@ export class UiModule {
       MatSnackBarModule,
       MatListModule,
       MatProgressSpinnerModule,
-      MatMenuModule
+      MatMenuModule,
+      MatAutocompleteModule
     ]
 
  }

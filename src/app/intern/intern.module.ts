@@ -5,6 +5,8 @@ import { InternTableComponent } from './components/intern-table/intern-table.com
 import { InternDetailComponent } from './components/intern-detail/intern-detail.component';
 import { InternAddComponent } from './components/intern-add/intern-add.component';
 import { SharedModule } from '../shared/shared.module';
+import { InternSearchBarComponent } from './search-bar/intern-search-bar/intern-search-bar.component';
+
 
 
 
@@ -12,7 +14,8 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     InternTableComponent,
     InternDetailComponent,
-    InternAddComponent
+    InternAddComponent,
+    InternSearchBarComponent
   ],
   imports: [
     CommonModule,

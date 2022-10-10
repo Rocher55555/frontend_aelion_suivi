@@ -16,8 +16,6 @@ import { Logger } from '../helpers/logger';
 
 export class POEService implements ICrud<POE> {
 
-
-
   public constructor(
     private httpClient: HttpClient     //transporteur des requete http vers le Front
   ) { }
@@ -34,7 +32,6 @@ export class POEService implements ICrud<POE> {
 
 
 
-
   /**
    * Update a POE throught its id
    * @param poe
@@ -45,7 +42,6 @@ export class POEService implements ICrud<POE> {
     //   oldPoe = {id: oldPoe.id, ...poe}
     // }
   }
-
 
   delete(poe: POE): Observable<any> {
     return of(new HttpResponse());
@@ -89,7 +85,6 @@ export class POEService implements ICrud<POE> {
         })
       )
   }
-
 
   /**
    * Find a POE with this id
