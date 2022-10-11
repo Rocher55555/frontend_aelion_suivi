@@ -28,8 +28,7 @@ export class ForgottenPasswordComponent implements OnInit {
       email: [
         '',
         [
-          Validators.required,
-          Validators.email
+          Validators.required
         ]
       ]
     });   // passwordForgottenForm deveint un nouvel objet de type formgroupe

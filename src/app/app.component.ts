@@ -17,13 +17,12 @@ export class AppComponent implements OnInit{
 
 // injection du service
   public constructor(
-    public internService: InternService
+
   ) {}
 
 
 
   ngOnInit(): void {
-    this.internService.findAll().subscribe();
-    Logger.info(StringHelper.sanitizePonctuation('Ca va? Oui et toi?Lui aussi , merci. On est avec Sacha, on fonctionne à la Vodka!!'))
+
   }
 }

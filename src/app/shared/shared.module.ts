@@ -10,7 +10,6 @@ import { InitialsDirective } from './directives/initials.directive';
 import { InitialPipe } from './pipes/initial.pipe';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -27,7 +26,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     UiModule,
     ReactiveFormsModule,
     RouterModule,
-    Ng2SearchPipeModule
   ],
 
   exports: [
@@ -39,7 +37,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AgePipe,
     InitialPipe,
     InitialsDirective,
-    Ng2SearchPipeModule
   ]
 })
 
