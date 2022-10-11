@@ -26,15 +26,16 @@
       <th>Phone</th>
       <th>Email</th>
       <th>address</th>
-      <th>Actions</th>
       <th>&nbsp;</th>
+      <th>Actions</th>
+
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let intern of interns">
       <td>{{ intern.id }}</td>
       <td>
-        {{ intern | initial }}
+        <!-- to cancel{{ intern | initial }} -->
         <a [routerLink]="['/', 'intern', intern.id]"> {{ intern.name | uppercase }} </a>
       </td>
       <td>{{ intern.firstname }}</td>
@@ -63,7 +64,7 @@
             <span>Evaluate</span>
            </bouton>
 
-            <bouton mat-menu-item class="deletebt">
+            <bouton mat-menu-item class="deletebt" (click)="onDelete(intern)">
               <mat-icon id="deletebt">delete</mat-icon>
               <span>Delete</span>
             </bouton>
