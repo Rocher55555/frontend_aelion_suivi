@@ -22,8 +22,19 @@ export class POEService implements ICrud<POE> {
 
 
 
-  add(item: POE): Observable<POE> {
-    throw new Error('Method not implemented.');
+  public add(poeData: unknown): Observable<POE> {
+    Logger.info('Ca marche: poeService')
+    return this.httpClient.post<any>(
+      `${environment.apiRoot}poe`,
+      poeData
+    )
+    .pipe(
+      take(1),
+      map((rawPoe: unknown) => {
+        Logger.info('Caaaaaaaaaaaaaa')
+        return new POE().deserialize(rawPoe);
+      })
+    )
   }
 
 
@@ -36,14 +47,14 @@ export class POEService implements ICrud<POE> {
    * Update a POE throught its id
    * @param poe
    */
-  update(poe: POE): void {
+   public update(poe: POE): void {
     // let oldPoe: POE | null = this.findOne(poe.id!);
     // if(oldPoe !== null){
     //   oldPoe = {id: oldPoe.id, ...poe}
     // }
   }
 
-  delete(poe: POE): Observable<any> {
+  public delete(poe: POE): Observable<any> {
     return of(new HttpResponse());
   }
 
@@ -68,7 +79,7 @@ export class POEService implements ICrud<POE> {
   //     )
   // }
 
-  findAll(): Observable<POE[]> {
+  public findAll(): Observable<POE[]> {
     return this.httpClient.get<any>(
       `${environment.apiRoot}poe`
     )//recup observable
@@ -93,7 +104,7 @@ export class POEService implements ICrud<POE> {
    * @returns POE | null (if not find)
    */
 
-   findOne(id: number): Observable<POE> {
+   public findOne(id: number): Observable<POE> {
     return this.httpClient.get<any>(
       `${environment.apiRoot}poe/${id}`,  //http://127.0.0.1/poe/idDeLaPoe
       {

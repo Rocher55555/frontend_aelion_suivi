@@ -62,7 +62,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
       }
     })
 
-    //je voudrai bien les poes
+    //je voudrais bien les poes
     myInternForm.toggleAddPoes()
     .subscribe(
       (poes: POE[])=> {
@@ -102,7 +102,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
 
   public onAddressChange(event:Event):void{
     // conversion de type, de Event à HTMLInputValue pour pouvoir appeler target.value
-    const addressInputValue=(event.target as HTMLInputElement).value 
+    const addressInputValue=(event.target as HTMLInputElement).value
 
     const search: string = addressInputValue.trim()
     if (search.length >= 3) {

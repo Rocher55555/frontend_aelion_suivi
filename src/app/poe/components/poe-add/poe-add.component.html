@@ -1,4 +1,4 @@
-<h2>add fonctionne</h2>
+<h2>Poes</h2>
 
 
 <div>
@@ -10,7 +10,7 @@
 
 <form [formGroup]="poeForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <input matInput formControlName="title" placeholder="Your title...">
+    <input matInput formControlName="name" placeholder="Your title...">
   </mat-form-field>
   <button mat-raised-button color="accent" [disabled]="poeForm.invalid">Save</button>
 </form>
