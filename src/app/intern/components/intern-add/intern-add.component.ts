@@ -42,6 +42,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
     private emailExistsValidator: EmailExistsValidatorService,
     private httpClient: HttpClient
   ) { }
+
 // methode qui permet d'eviter les type et d'ecrire "internForm.controls" dans le html =>remplacer par 'c'
   public get c(): {[key: string]: AbstractControl} {
     return this.internForm!.controls;
