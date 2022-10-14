@@ -1,20 +1,54 @@
 <h2>Poes</h2>
 
-
 <div>
   <a [routerLink]="['/poes']">
     retour vers le tableau
   </a>
 </div>
 
+<ng-container *ngIf="poeForm, else Loading">
+  <form [formGroup]="poeForm" (ngSubmit)="onSubmit()">
+    <fieldset>
 
-<form [formGroup]="poeForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input matInput formControlName="name" placeholder="Your title...">
-  </mat-form-field>
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label> Poe title</mat-label>
+          <input matInput formControlName="name" placeholder="Your title...">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Beginning Date</mat-label>
+          <input matInput type="date" formControlName="beginDate" placeholder="POE Beginning date..." autocomplete="do-not-fill">
+          <!-- afficher erreur -->
+              <mat-error *ngIf="c['beginDate'].errors && poeForm.controls['beginDate'].touched || poeForm.controls['beginDate'].dirty">
+              <span *ngIf="c['beginDate'].hasError('required')">beginDate is required...</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>End Date</mat-label>
+          <input matInput type="date" formControlName="endDate" placeholder="POE end date..." autocomplete="do-not-fill">
+          <!-- afficher erreur -->
+              <mat-error *ngIf="c['endDate'].errors && poeForm.controls['endDate'].touched || poeForm.controls['endDate'].dirty">
+              <span *ngIf="c['endDate'].hasError('required')">endDate is required...</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </fieldset>
+
   <button mat-raised-button color="accent" [disabled]="poeForm.invalid">Save</button>
-</form>
 
+  </form>
 
-{{ poeForm.value | json }}
+<!-- {{ poeForm.value | json }} -->
+</ng-container>
+
+<ng-template #Loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
 

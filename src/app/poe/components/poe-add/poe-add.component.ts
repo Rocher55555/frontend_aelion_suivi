@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { POEService } from 'src/app/core/services/poe.service';
 //import { POE } from 'src/app/core/models/poe';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { POE } from 'src/app/core/models/poe';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddSnackService } from 'src/app/core/services/add-snack.service';
@@ -26,6 +26,11 @@ export class POEAddComponent implements OnInit, OnDestroy {
     private snacBar: AddSnackService
   ) { }
 
+  // methode qui permet d'eviter les type et d'ecrire "poeForm.controls" dans le html => remplacer par 'c'
+  public get c(): {[key: string]: AbstractControl} {
+    return this.poeForm!.controls;
+  }
+
   ngOnInit(): void {
     this.poeForm = this.formBuilder.group({
       name:[
@@ -41,9 +46,7 @@ export class POEAddComponent implements OnInit, OnDestroy {
         '',
         Validators.compose(
           [
-            //
-
-
+            Validators.required,
           ]
         )
       ],
@@ -51,7 +54,7 @@ export class POEAddComponent implements OnInit, OnDestroy {
         '',
         Validators.compose(
           [
-
+            Validators.required,
           ]
         )
       ]
@@ -83,27 +86,6 @@ export class POEAddComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-
-
-
- //Da cancellare
-  /*public onSubmit():void {
-    console.log(`Bout to send : { ${JSON.stringify(this.poeForm.value)}}`);
-
-  //next we will have tocreate a new Intern Instance
-    const poe: POE = new POE();
-    poe.name = this.poeForm.value.name;
-
- // we will have to pass brand new intern to add method of our service
-   this.poeService.add(poe)
-
-   //snackbar
-   this.snacBar.show('la poe a bien été enregistrée')
-
-   //Finally go to the intern table component
-   this.router.navigate (['/', 'poes']);
-  }
-  */
 }
 
 
