@@ -25,7 +25,7 @@ export class HasUserGuard implements CanActivate {
         this.router.navigate(['/', 'interns'])
         return false
       } else {
-        Logger.info(`J'ai PAS un user`)
+        //Logger.info(`J'ai PAS un user`)
         return true
       }
     }

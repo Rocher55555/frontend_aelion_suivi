@@ -78,7 +78,7 @@ export class POEAddComponent implements OnInit, OnDestroy {
     this.findAllPoeType();
   }
 
-  // Addmethode perso
+  // Add a POE
   public onSubmit():void {
     console.log(`Bout to send : { ${JSON.stringify(this.poeForm.value)}}`);
 
@@ -96,9 +96,7 @@ export class POEAddComponent implements OnInit, OnDestroy {
       //Finally go to the POE table component
       this.router.navigate(['/', 'poes']);
       })
-
   }
-
 
 
   //findAll() for POEType

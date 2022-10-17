@@ -9,10 +9,10 @@ Add
   </button>
   <mat-menu #menuamoi="matMenu">
     <button mat-menu-item>
-      <span [routerLink]="['/interns']">Interns</span>
+      <a [routerLink]="['/','interns']">Interns</a>
     </button>
     <button mat-menu-item>
-      <span  [routerLink]="['/poes']">Poes</span>
+      <a  [routerLink]="['/','poes']">Poes</a>
     </button>
   </mat-menu>
 
@@ -20,7 +20,7 @@ Add
   <!-- <span> SuperApp </span> -->
   <span class="example-spacer"></span>
   <!-- si l'user pas identifié -->
-  <a id="signin" [routerLink]="['/signin']" *ngIf="!userService.isAuthenticated();  " >
+  <a id="signin" [routerLink]="['/','signin']" *ngIf="!userService.isAuthenticated();" >
     <mat-icon>person</mat-icon>
   </a>
   <a *ngIf="userService.isAuthenticated() === true" (click)="userService.signout()" >
