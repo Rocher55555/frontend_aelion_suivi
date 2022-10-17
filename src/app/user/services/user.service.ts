@@ -12,16 +12,6 @@ import { UserModel } from '../models/user-model';
 
 export class UserService {
 
-  private users: any[] = [
-    {
-      login: 'bond',
-      pass: '007'
-    },
-    {
-      login: 'casper',
-      pass: 'ghost'
-    }
-  ];
 
   private user: UserModel | null = null;   // on part du principe que par default il set null
 /**
