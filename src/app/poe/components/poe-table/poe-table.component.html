@@ -9,7 +9,7 @@
       <th>Titre</th>
       <th>Beginning date</th>
       <th>End date</th>
-      <th>&nbsp;</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -22,7 +22,25 @@
       </td>
       <td>{{poe.beginDate| date:"mediumDate" }}</td>
       <td>{{poe.endDate| date:"mediumDate" }}</td>
-      <td>&nbsp;</td>
+      <!-- menu with icons-->
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Exemple icon-button avec un menu">
+          <mat-icon> more_vert </mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <bouton mat-menu-item mat-menu-item disabled>
+            <mat-icon>update</mat-icon>
+            <span>Update</span>
+          </bouton>
+
+            <bouton mat-menu-item class="deletebt" (click)="delete(poe)">
+              <mat-icon id="deletebt">delete</mat-icon>
+              <span>Delete</span>
+            </bouton>
+
+        </mat-menu>
+      </td>
     </tr>
   </tbody>
 </table>
