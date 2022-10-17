@@ -16,6 +16,9 @@ table {
   }
   tbody {
     margin: 0;
+    tr{
+      text-align: center;
+    }
     tr:nth-child(odd){
       background-color: #892be239;
     }
@@ -27,6 +30,17 @@ table {
   .mat-raised-button.mat-primary {
     background-color:rgb(226, 180, 42);
   }
+
+  // Icon delete
+#deletebt{
+  color: red;
+}
+
+//Text delete
+.deletebt{
+  color: red;
+}
+
 
 
 
