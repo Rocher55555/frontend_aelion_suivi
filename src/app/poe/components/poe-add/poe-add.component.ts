@@ -8,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddSnackService } from 'src/app/core/services/add-snack.service';
 import { Subscription } from 'rxjs';
 import { Logger } from 'src/app/core/helpers/logger';
-import { PoeTypeService } from 'src/app/core/services/poe-type.service';
 import { POEType } from 'src/app/core/models/poe-type';
+import { PoeTypeService } from '../../../core/services/poe-type.service'
 
 
 
