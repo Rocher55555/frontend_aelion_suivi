@@ -1,10 +1,10 @@
-<h2>Add a POE</h2>
-
 <div>
   <a [routerLink]="['/poes']">
     retour vers le tableau
   </a>
 </div>
+
+<h2>Add a POE</h2>
 
 <ng-container *ngIf="poeForm, else Loading">
   <form [formGroup]="poeForm" (ngSubmit)="onSubmit()">
@@ -40,11 +40,11 @@
       </div>
 
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="allPoeType.length">
         <mat-form-field appearance="fill" id="poes-type-list">
 
           <mat-label>POE Type</mat-label>
-          <mat-select *ngIf="allPoeType.length" formControlName="poeType">
+          <mat-select formControlName="poeType">
             <mat-option *ngFor="let poeType of allPoeType" [value]="poeType" >
               {{poeType.title}}
             </mat-option>
