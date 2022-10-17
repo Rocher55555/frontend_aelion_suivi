@@ -7,6 +7,7 @@ import { map, take, throwIfEmpty } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
 import { Logger } from '../helpers/logger';
+import { Intern } from '../models/intern';
 
 
 
@@ -31,17 +32,24 @@ export class POEService implements ICrud<POE> {
     .pipe(
       take(1),
       map((rawPoe: unknown) => {
-        Logger.info('02 Ca marche: poeService ')
+        //Logger.info('ADD() Ca marche: poeService ')
         return new POE().deserialize(rawPoe);
       })
     )
   }
 
+  public delete(poe: POE): Observable<HttpResponse<any>> {
+    Logger.info('01 Delete() works !!!!: poeService')
+    return this.httpClient.delete(
+      `${environment.apiRoot}poe/${poe.id}`,
+      {
+        observe: 'response'
+      }
+    );
+  }
+
 
   //ajout des méthodes de l'interface Icrud
-
-
-
 
   /**
    * Update a POE throught its id
@@ -54,9 +62,7 @@ export class POEService implements ICrud<POE> {
     // }
   }
 
-  public delete(poe: POE): Observable<any> {
-    return of(new HttpResponse());
-  }
+
 
    // FINALL BEFORE DESERIALIZE
   // findAll(): Observable<POE[]> {
