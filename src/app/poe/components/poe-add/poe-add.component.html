@@ -1,4 +1,4 @@
-<h2>Poes</h2>
+<h2>{{title}}</h2>
 
 <div>
   <a [routerLink]="['/poes']">
@@ -36,6 +36,20 @@
               <mat-error *ngIf="c['endDate'].errors && poeForm.controls['endDate'].touched || poeForm.controls['endDate'].dirty">
               <span *ngIf="c['endDate'].hasError('required')">endDate is required...</span>
           </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" id="poes-type-list">
+
+          <mat-label>POE Type</mat-label>
+          <mat-select *ngIf="allPoeType.length" formControlName="poeType">
+            <mat-option *ngFor="let poeType of allPoeType" [value]="poeType" >
+              {{poeType.title}}
+            </mat-option>
+          </mat-select>
+
         </mat-form-field>
       </div>
 

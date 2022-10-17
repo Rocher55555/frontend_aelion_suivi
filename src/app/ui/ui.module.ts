@@ -14,6 +14,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 
 
+
 @NgModule({
   //declarations: [],
   imports: [
@@ -37,7 +38,7 @@ export class UiModule {
       MatListModule,
       MatProgressSpinnerModule,
       MatMenuModule,
-      MatAutocompleteModule
+      MatAutocompleteModule,
     ]
 
  }

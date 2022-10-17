@@ -23,7 +23,7 @@ export class POEService implements ICrud<POE> {
 
 
   public add(poeData: unknown): Observable<POE> {
-    Logger.info('Ca marche: poeService')
+    //Logger.info('01 Ca marche: poeService')
     return this.httpClient.post<any>(
       `${environment.apiRoot}poe`,
       poeData
@@ -31,7 +31,7 @@ export class POEService implements ICrud<POE> {
     .pipe(
       take(1),
       map((rawPoe: unknown) => {
-        Logger.info('Caaaaaaaaaaaaaa')
+        Logger.info('02 Ca marche: poeService ')
         return new POE().deserialize(rawPoe);
       })
     )

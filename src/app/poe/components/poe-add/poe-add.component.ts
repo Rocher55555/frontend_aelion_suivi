@@ -8,6 +8,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddSnackService } from 'src/app/core/services/add-snack.service';
 import { Subscription } from 'rxjs';
 import { Logger } from 'src/app/core/helpers/logger';
+import { PoeTypeService } from 'src/app/core/services/poe-type.service';
+import { POEType } from 'src/app/core/models/poe-type';
+
+
 
 @Component({
   selector: 'app-poe-add',
@@ -18,12 +22,15 @@ export class POEAddComponent implements OnInit, OnDestroy {
 
   public poeForm!: FormGroup;
   private subscription!: Subscription;
+  public allPoeType: POEType[] = [];
+  public title: string = "poe";
 
   constructor(
     private poeService: POEService,
     private router: Router,
     private formBuilder : FormBuilder,
-    private snacBar: AddSnackService
+    private snacBar: AddSnackService,
+    private poeTypeService: PoeTypeService
   ) { }
 
   // methode qui permet d'eviter les type et d'ecrire "poeForm.controls" dans le html => remplacer par 'c'
@@ -57,8 +64,18 @@ export class POEAddComponent implements OnInit, OnDestroy {
             Validators.required,
           ]
         )
+      ],
+      poeType:[
+        '',
+        Validators.compose(
+          [
+            Validators.required,
+            Validators.minLength(2)
+          ]
+        )
       ]
     })
+    this.findAllPoeType();
   }
 
   // Addmethode perso
@@ -72,16 +89,29 @@ export class POEAddComponent implements OnInit, OnDestroy {
  // we will have to pass brand new POE to add method of our service
    this.subscription = this.poeService.add(this.poeForm!.value).subscribe((poe: POE) => {
     Logger.info(`A POE was created: ${JSON.stringify(poe)}`);
-  })
 
-   //snackbar
-   this.snacBar.show('POE added successfully')
+      //snackbar
+      this.snacBar.show('POE added successfully')
 
-   //Finally go to the POE table component
-   this.router.navigate(['/', 'poes']);
+      //Finally go to the POE table component
+      this.router.navigate(['/', 'poes']);
+      })
+
   }
 
-  //  unsubscribe() : desinscription
+
+
+  //findAll() for POEType
+  public findAllPoeType(): void {
+    this.subscription = this.poeTypeService.findAll() //observable => findAll()
+    .subscribe((poeTypes: POEType[]) => {
+      //recup list de type de poe
+      this.allPoeType = poeTypes
+    })
+  }
+
+
+//  unsubscribe() : desinscription
   public ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
