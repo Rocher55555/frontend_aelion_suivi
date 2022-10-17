@@ -1,7 +1,17 @@
 mat-toolbar  {
   background-color:blueviolet;
-   color: white;
-}
+  color: white;
+  }
+
+  button{
+    &:hover {
+      font-weight: bold;
+    }
+      a {
+        text-decoration: none;
+      }
+  }
+
 
 .example-spacer {
   flex: 1 1 auto;
