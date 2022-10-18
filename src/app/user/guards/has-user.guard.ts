@@ -22,10 +22,10 @@ export class HasUserGuard implements CanActivate {
 
       if(this.userService.isAuthenticated()){
         // Mean that User was autentificated, so, don't allow to go to SigninComponent
-        this.router.navigate(['/', 'interns'])
+        //this.router.navigate(['/', 'interns'])
         return false
       } else {
-        Logger.info(`J'ai PAS un user`)
+        Logger.info(`J'ai Pas un user, donc je peux log in`)
         return true
       }
     }
