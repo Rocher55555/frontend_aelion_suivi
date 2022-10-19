@@ -1,4 +1,9 @@
 
+h1 {
+  text-align: center;
+  margin: 20px;
+}
+
 table {
   // display: flex;
   margin: 0 auto;
@@ -6,7 +11,7 @@ table {
   margin-bottom: 3rem;
   border-collapse: collapse;
   thead {
-    background-color: rgb(194, 240, 224);
+    background-color: #892be213 ;
     tr {
       th {
         border-bottom: 2px solid #8a2be2;
@@ -16,17 +21,31 @@ table {
   }
   tbody {
     margin: 0;
+    tr{
+      text-align: center;
+    }
     tr:nth-child(odd){
       background-color: #892be239;
     }
   }
 }
 
-
 //button
   .mat-raised-button.mat-primary {
     background-color:rgb(226, 180, 42);
+    margin: auto;
   }
+
+  // Icon delete
+#deletebt{
+  color: red;
+}
+
+//Text delete
+.deletebt{
+  color: red;
+}
+
 
 
 

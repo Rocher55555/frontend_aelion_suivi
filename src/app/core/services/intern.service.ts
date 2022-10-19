@@ -63,9 +63,6 @@ export class InternService implements ICrud<Intern>{
       ;
   }
 
-
-
-
   findOne(id: number): Observable<Intern> {
     return this.httpClient.get<any>(
       `${environment.apiRoot}intern/${id}`,      // http://127.0.0.1/intern/999

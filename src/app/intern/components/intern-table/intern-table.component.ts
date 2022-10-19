@@ -59,7 +59,7 @@ export class InternTableComponent implements OnInit {
   }
 
   public onDelete (intern: Intern): void {
-    this.internService.delete(intern)    // on veut just recup l'observable qui observe une rep http
+    this.internService.delete(intern)    // on veut juste récupérer l'observable qui observe une rep http
       .pipe(
         take(1)    //take dans le pipe
       ).subscribe((response: HttpResponse<any>) => {
@@ -68,6 +68,12 @@ export class InternTableComponent implements OnInit {
             this.interns.findIndex((obj: Intern) => obj.id === intern.id),
             1
           );
+          this.poes.forEach(poe => {
+            poe.interns.splice(
+              poe.interns.findIndex((obj: Intern) => obj.id === intern.id),
+              1
+            )
+          })
         }
       })
   }

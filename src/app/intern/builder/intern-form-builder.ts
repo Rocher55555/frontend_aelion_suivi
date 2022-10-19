@@ -20,9 +20,9 @@ export class InternFormBuilder {
     private formBuilder: FormBuilder,// composition : class a
     private poeService: POEService
     ) {
-      this._intern.name = 'Andreotti';
-      this._intern.firstname = 'Pio'
-      this._intern.birthDate = new Date ('01/08/2020');
+      //this._intern.name = 'Andreotti';
+      //his._intern.firstname = 'Pio'
+      //this._intern.birthDate = new Date ('01/08/2020');
       this._buildForm();
     }
 

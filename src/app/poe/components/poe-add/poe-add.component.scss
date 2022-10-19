@@ -1,0 +1,39 @@
+#return{
+  text-align: center;
+  padding: 20px;
+  a {
+    color:#000;
+    text-decoration: none;
+    &:hover{
+      color: blueviolet;
+    }
+  }
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 auto;
+  width: 30%;
+  fieldset {
+    border-style: none;
+  }
+  button{
+    height: 36px;
+    width: 64px;
+    margin-left: 60%;
+    margin-top: 2%;
+  }
+}
+
+
+
+
+
+

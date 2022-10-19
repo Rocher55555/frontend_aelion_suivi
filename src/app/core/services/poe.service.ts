@@ -7,6 +7,7 @@ import { map, take, throwIfEmpty } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
 import { Logger } from '../helpers/logger';
+import { Intern } from '../models/intern';
 
 
 
@@ -22,30 +23,45 @@ export class POEService implements ICrud<POE> {
 
 
 
-  add(item: POE): Observable<POE> {
-    throw new Error('Method not implemented.');
+  public add(poeData: unknown): Observable<POE> {
+    //Logger.info('01 Ca marche: poeService')
+    return this.httpClient.post<any>(
+      `${environment.apiRoot}poe`,
+      poeData
+    )
+    .pipe(
+      take(1),
+      map((rawPoe: unknown) => {
+        return new POE().deserialize(rawPoe);
+      })
+    )
+  }
+
+  public delete(poe: POE): Observable<HttpResponse<any>> {
+    Logger.info('01 Delete() works !!!!: poeService')
+    return this.httpClient.delete(
+      `${environment.apiRoot}poe/${poe.id}`,
+      {
+        observe: 'response'
+      }
+    );
   }
 
 
   //ajout des méthodes de l'interface Icrud
 
-
-
-
   /**
    * Update a POE throught its id
    * @param poe
    */
-  update(poe: POE): void {
+   public update(poe: POE): void {
     // let oldPoe: POE | null = this.findOne(poe.id!);
     // if(oldPoe !== null){
     //   oldPoe = {id: oldPoe.id, ...poe}
     // }
   }
 
-  delete(poe: POE): Observable<any> {
-    return of(new HttpResponse());
-  }
+
 
    // FINALL BEFORE DESERIALIZE
   // findAll(): Observable<POE[]> {
@@ -68,7 +84,7 @@ export class POEService implements ICrud<POE> {
   //     )
   // }
 
-  findAll(): Observable<POE[]> {
+  public findAll(): Observable<POE[]> {
     return this.httpClient.get<any>(
       `${environment.apiRoot}poe`
     )//recup observable
@@ -93,7 +109,7 @@ export class POEService implements ICrud<POE> {
    * @returns POE | null (if not find)
    */
 
-   findOne(id: number): Observable<POE> {
+   public findOne(id: number): Observable<POE> {
     return this.httpClient.get<any>(
       `${environment.apiRoot}poe/${id}`,  //http://127.0.0.1/poe/idDeLaPoe
       {

@@ -42,6 +42,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
     private emailExistsValidator: EmailExistsValidatorService,
     private httpClient: HttpClient
   ) { }
+
 // methode qui permet d'eviter les type et d'ecrire "internForm.controls" dans le html =>remplacer par 'c'
   public get c(): {[key: string]: AbstractControl} {
     return this.internForm!.controls;
@@ -62,7 +63,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
       }
     })
 
-    //je voudrai bien les poes
+    //je voudrais bien les poes
     myInternForm.toggleAddPoes()
     .subscribe(
       (poes: POE[])=> {
@@ -102,7 +103,7 @@ export class InternAddComponent implements OnInit, OnDestroy {
 
   public onAddressChange(event:Event):void{
     // conversion de type, de Event à HTMLInputValue pour pouvoir appeler target.value
-    const addressInputValue=(event.target as HTMLInputElement).value 
+    const addressInputValue=(event.target as HTMLInputElement).value
 
     const search: string = addressInputValue.trim()
     if (search.length >= 3) {
