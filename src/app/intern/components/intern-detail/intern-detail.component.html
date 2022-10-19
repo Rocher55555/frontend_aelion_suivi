@@ -1,24 +1,22 @@
-<h2>intern-detail</h2>
+<div class="container">
+  <h1>intern-detail</h1>
 
+  <!-- div was displayed when intern was up -->
+  <!--<div *ngIf="intern" appInitials [intern]="intern"></div>-->     <!--à remettre-->
+  <div *ngIf="intern" appInitials [intern]="intern" [config]="bubbleDetailConfig"></div>  <!--exo à effacer-->
 
-<!-- div was displayed when intern was up -->
-<!--<div *ngIf="intern" appInitials [intern]="intern"></div>-->     <!--à remettre-->
-<div *ngIf="intern" appInitials [intern]="intern" [config]="bubbleDetailConfig"></div>  <!--exo à effacer-->
+    <ul *ngIf="intern !== null">
+      <li> Name: {{intern.name}} </li>
+      <li> Firstname: {{intern.firstname}} </li>
+      <li> Email: {{intern.email}} </li>
+      <li> Phone Number: {{intern.phoneNumber}}  </li>
+      <li> Birthdate: {{intern.birthDate | date:"mediumDate"}} ({{intern.birthDate! | age | async }})</li>
+      <li> Adress: {{intern.address}} </li>
+    </ul>
+    <button mat-raised-button color="accent" [routerLink]="['/interns']">retour au tableau Interns</button>
+  </div>
+  <!-------------------------- BOUTONS ---------------------------->
 
-
-  <ul *ngIf="intern !== null">
-    <li> Name: {{intern.name}} </li>
-    <li> Firstname: {{intern.firstname}} </li>
-    <li> Email: {{intern.email}} </li>
-    <li> Phone Number: {{intern.phoneNumber}}  </li>
-    <li> Birthdate: {{intern.birthDate | date:"mediumDate"}} ({{intern.birthDate! | age | async }})</li>
-    <li> Adress: {{intern.address}} </li>
-  </ul>
-
-
-<!-------------------------- BOUTONS ---------------------------->
-
-<button mat-raised-button color="accent" [routerLink]="['/interns']">retour au tableau Interns</button>
 
 
 <!-- <div>

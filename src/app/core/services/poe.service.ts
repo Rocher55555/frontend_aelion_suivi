@@ -32,7 +32,6 @@ export class POEService implements ICrud<POE> {
     .pipe(
       take(1),
       map((rawPoe: unknown) => {
-        //Logger.info('ADD() Ca marche: poeService ')
         return new POE().deserialize(rawPoe);
       })
     )

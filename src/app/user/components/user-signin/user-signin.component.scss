@@ -1,9 +1,26 @@
-a{
+.container{
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button{
+      margin: 20px;
+    }
+  }
+}
+
+
+a {
   color:#000;
   text-decoration: none;
+    &:hover{
+      color: blueviolet;
+    }
   }
 
-  a:hover{
-    color: blueviolet;
-  }
 
